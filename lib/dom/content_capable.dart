@@ -95,11 +95,9 @@ abstract class DomNodeContentCapable {
    * Sets inner text.
    */
   void _setInnerText(Object value) {
-    HtmlEscape escape = const HtmlEscape(HtmlEscapeMode.ELEMENT);
-
     clean();
     elements.forEach((Element element) {
-      element.text = escape.convert(value.toString());
+      element.text = value.toString();
     });
   }
 }
