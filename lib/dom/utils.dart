@@ -1,5 +1,3 @@
-library dom_utils;
-
 import 'dart:html';
 import 'dart:convert';
 
