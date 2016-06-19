@@ -1,8 +1,6 @@
 import 'package:domnode/core.dart';
 
 void main() {
-  DomNode h1 = domQuery('h1');
-
   // accessing a single element
   domQuery('h1')
     ..text('Changing title')
