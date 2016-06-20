@@ -28,7 +28,7 @@ void main() {
 
 ### Getting elements from a document
 
-The main class of this library is the `DomNode` class. `DomNode` extends the `IterableBase` class. That means that you can think of it as either a single object or a list of object. For example, consider the following code:
+`DomNode` is the main class of this library. `DomNode` extends the `IterableBase` class. That means that you can think of it as single object or a list of object. For example, consider the following code:
 
 ```dart
 // gets a single element
