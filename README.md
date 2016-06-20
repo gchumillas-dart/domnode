@@ -4,7 +4,7 @@ A library to easily traverse and manipulate DOM documents. It is inspired on the
 
 ## How to install
 
-Edit your package's pubspec.yaml file:
+Edit your pubspec.yaml file:
 ```yaml
 dependencies:
   domnode: ">=1.0.0 <2.0.0"
