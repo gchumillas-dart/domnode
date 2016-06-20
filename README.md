@@ -1,23 +1,21 @@
-domQuery
-========
+# DomNode
 
-An abstraction layer of the DOM implementation that allows us to manipulate and traverse documents in an easy and intuitive way. This library is not intended as a replacement for the DOM implementation. But in most cases you will not need to use native DOM functions.
+A library to easily traverse and manipulate DOM documents. It is inspired on the jQuery philosophy.
 
-How to install
---------------
+## How to install
 
-Add this to your package's pubspec.yaml file:
-```text
+Edit your pubspec.yaml file:
+```yaml
 dependencies:
   domnode: ">=1.0.0 <2.0.0"
 ```
 
-You can install packages from the command line:
+Install dependencies:
 ```bash
-pub get
+> pub get
 ```
 
-Now in your Dart code, you can use:
+Import the library:
 ```dart
 import 'package:domnode/core.dart';
 
@@ -26,12 +24,11 @@ void main() {
 }
 ```
 
-Examples
---------
+## Examples
 
 ### Getting elements from a document
 
-The main class of this library is the `DomNode` class. `DomNode` extends the `IterableBase` class. That means that you can think of it as either a single object or a list of object. For example, consider the following code:
+`DomNode` is the main class of this library. `DomNode` extends the `IterableBase` class. That means that you can think of it as single object or a list of object. For example, consider the following code:
 
 ```dart
 // gets a single element
