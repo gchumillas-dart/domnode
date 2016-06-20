@@ -1,10 +1,8 @@
-domQuery
-========
+# DomNode
 
-An abstraction layer of the DOM implementation that allows us to manipulate and traverse documents in an easy and intuitive way. This library is not intended as a replacement for the DOM implementation. But in most cases you will not need to use native DOM functions.
+A library to easily traverse and manipulate DOM documents. It is inspired on the jQuery philosophy.
 
-How to install
---------------
+## How to install
 
 Add this to your package's pubspec.yaml file:
 ```text
@@ -26,8 +24,7 @@ void main() {
 }
 ```
 
-Examples
---------
+## Examples
 
 ### Getting elements from a document
 
