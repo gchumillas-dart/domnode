@@ -131,20 +131,23 @@ var node = new DomNode.fromElement(myElement)
 ```
 
 ### Creating documents from scratch
+
+You can use the '$' method to create DomNode elements.
+
 ```dart
-var node = new DomNode('root', callback: (DomNode target) {
+var node = $('root', callback: (DomNode target) {
   // apends a new node with childNodes
-  target.append(new DomNode('user', callback: (DomNode target) {
-    target.append(new DomNode('first-name', text: 'James'));
-    target.append(new DomNode('last-name', text: 'Bond'));
-    target.append(new DomNode('age', text: 158));
-    target.append(new DomNode('bio', html: 'My name is Bond, <em>James Bond</em>'));
+  target.append($('user', callback: (DomNode target) {
+    target.append($('first-name', text: 'James'));
+    target.append($('last-name', text: 'Bond'));
+    target.append($('age', text: 158));
+    target.append($('bio', html: 'My name is Bond, <em>James Bond</em>'));
   }));
 
   // appends more items
-  target.append(new DomNode('item', attributes: {'id': 101, 'title': 'Item 1'}));
-  target.append(new DomNode('item', attributes: {'id': 102, 'title': 'Item 2'}));
-  target.append(new DomNode('item', attributes: {'id': 103, 'title': 'Item 3'}));
+  target.append($('item', attributes: {'id': '101', 'title': 'Item 1'}));
+  target.append($('item', attributes: {'id': '102', 'title': 'Item 2'}));
+  target.append($('item', attributes: {'id': '103', 'title': 'Item 3'}));
 
   // appends raw content
   target.append('<summary>Look at my horse, my horse is amazing</summary>');
