@@ -4,10 +4,10 @@ A library to easily traverse and manipulate DOM documents. It is inspired on the
 
 ## How to install
 
-Edit your pubspec.yaml file:
+Edit your pubspec.yaml file and add the `domnode` package:
 ```yaml
 dependencies:
-  domnode: ">=1.0.0 <2.0.0"
+  domnode: ^1.0.0
 ```
 
 Install dependencies:
@@ -28,42 +28,46 @@ void main() {
 
 ### Getting elements from a document
 
-`DomNode` is the main class of this library. `DomNode` extends the `IterableBase` class. That means that you can think of it as single object or a list of object. For example, consider the following code:
+`DomNode` is the main class of this library. It extends the `IterableBase`
+class, which means that you can think of it as a single node or multiple node.
+For example, consider the following code:
 
 ```dart
-// gets a single element
-var title = domQuery('h1');
+// gets a single node
+DomNode node = domQuery('h1');
+print(node);
 
-// gests multiple elements
-var items = domQuery('p');
-items.forEach((item) {
-  print(item);
+// gests multiple nodes
+Iterable<DomNode> nodes = domQuery('p');
+nodes.forEach((DomNode node) {
+  print(node);
 });
 ```
 
-In both cases, the `domQuery` function returns a `DomNode` object. But in the first case, we are using it to access a single element and in the other case we are accessing multiple elements.
+In both cases `domQuery()` returns a `DomNode` object. But in the first case we
+access a single node and in the second case we traverse multiple nodes.
 
 ### Attributes
 
 ```dart
 // gets an attribute
-print(domQuery('a[id="anchor1"]').attr('href'));
+print(domQuery('a[id="anchor1"]').getAttr('href'));
 
 // sets an attribute
-domQuery('a[id="anchor1"]').attr('title', 'New title');
+domQuery('a[id="anchor1"]').setAttr('title', 'New title');
 
 // does the attribute exist?
-assert(domQuery('a[id="anchor1"]').hasAttr('id'))
+assert(domQuery('a[id="anchor1"]').hasAttr('id'));
 ```
 
 ### CSS attributes
 
 ```dart
 // gets a CSS attribute
-print(domQuery('h1').css('background-color'));
+print(domQuery('h1').getCssAttr('background-color'));
 
 // sets a CSS attribute
-domQuery('h1').css('background-color', 'yellow');
+domQuery('h1').setCssAttr('background-color', 'yellow');
 ```
 
 ### CSS classes
@@ -82,7 +86,7 @@ assert(domQuery('h1').hasClass('class1'));
 ### Inner contents
 
 ```dart
-var body = domQuery('body');
+DomNode body = domQuery('body');
 
 // appends a new element
 body.append('<p>New paragraph</p>');
@@ -91,16 +95,16 @@ body.append('<p>New paragraph</p>');
 body.prepend('<p>New paragraph at the beginning</p>');
 
 // gets the inner text of a single element
-print(domQuery('h1').text());
+print(domQuery('h1').getText());
 
 // changes the inner text of a single element
-domQuery('h1').text('New title');
+domQuery('h1').setText('New title');
 
 // gets the inner html of a single element
-print(domQuery('p[id="p1"]').html());
+print(domQuery('p[id="p1"]').getHtml());
 
 // sets the inner html of a single element
-domQuery('p[id="p1"]').html('This is text is <em>italic</em>');
+domQuery('p[id="p1"]').setHtml('This is text is <em>italic</em>');
 
 // removes all childnodes of an element
 domQuery('div[id="div1"]').clean();
@@ -109,33 +113,40 @@ domQuery('div[id="div1"]').clean();
 ### Saving arbitrary data
 
 ```dart
-// saves arbitrary data in an element
-domQuery('h1').data('my-array', [1, 2, 3, 4]);
+// sets arbitrary data to an element
+domQuery('h1').setData('test', {'one': 1, 'two': 2, 'three': 3});
 
-// retrieves data from an element
-print(domQuery('h1').data('my-array'));
+// gets data from an element
+print(domQuery('h1').getData('test'));
 ```
 
 ### Creating instances from a given source
 ```dart
 // creates an instance from a string
-var node = new DomNode.fromString('<root><item id="1" /><item id="2" /><item id="3" /></root>');
+DomNode node = new DomNode.fromString(
+    '<root><item id="1" /><item id="2" /><item id="3" /></root>');
 print(node);
 
 // creates an instance from a document
-var node = new DomNode.fromDocument(myDocument);
+DomNode node = new DomNode.fromDocument(myDocument);
 print(node);
 
 // creates an instance from a DOM element
-var node = new DomNode.fromElement(myElement)
+DomNode node = new DomNode.fromElement(myElement);
 ```
 
-### Creating documents from scratch
+### Creating complex nodes
 
 You can use the '$' method to create DomNode elements.
 
 ```dart
-var node = $('root', callback: (DomNode target) {
+// create a span and appends it to the body
+DomNode node = $('span',
+    attrs: {'id': 'span_id', 'title': 'Span Title'}, text: 'Some text here');
+domQuery('body').append(node);
+
+// create a complex node
+DomNode node = $('root', callback: (DomNode target) {
   // apends a new node with childNodes
   target.append($('user', callback: (DomNode target) {
     target.append($('first-name', text: 'James'));
@@ -145,12 +156,12 @@ var node = $('root', callback: (DomNode target) {
   }));
 
   // appends more items
-  target.append($('item', attributes: {'id': '101', 'title': 'Item 1'}));
-  target.append($('item', attributes: {'id': '102', 'title': 'Item 2'}));
-  target.append($('item', attributes: {'id': '103', 'title': 'Item 3'}));
+  target.append($('item', attrs: {'id': '101', 'title': 'Item 1'}));
+  target.append($('item', attrs: {'id': '102', 'title': 'Item 2'}));
+  target.append($('item', attrs: {'id': '103', 'title': 'Item 3'}));
 
-  // appends raw content
-  target.append('<summary>Look at my horse, my horse is amazing</summary>');
+  // prepends raw content
+  target.prepend('<summary>Look at my horse, my horse is amazing</summary>');
 });
 print(node);
 ```
