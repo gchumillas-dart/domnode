@@ -5,11 +5,7 @@ export 'node.dart' show DomNode;
 /**
  * Searches nodes by CSS selectors.
  */
-DomNode $(String cssSelectors, [Document doc]) {
-  if (doc == null) {
-    doc = document;
-  }
-
-  DomNode node = new DomNode.fromDocument(doc);
+DomNode $(String cssSelectors) {
+  DomNode node = new DomNode.fromDocument(document);
   return node.query(cssSelectors);
 }
