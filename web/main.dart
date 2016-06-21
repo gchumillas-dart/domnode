@@ -6,8 +6,8 @@ void main() {
     ..setHtml('<custom-component></custom-component>')
     ..append('<lalala></lalala>')
     ..prepend('<ups>jejeje</ups>');
-  span.setData('test', 'hello');
-  print(span);
+  span.setData('test', ['hello', 101]);
+  print(span.getData('test'));
   /*
   Iterable<DomNode> node = $('root', callback: (DomNode target) {
     // apends a new node with childNodes

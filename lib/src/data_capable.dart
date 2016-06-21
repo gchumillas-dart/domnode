@@ -1,6 +1,5 @@
 part of domnode;
 
-// TODO: remove redundant comments
 // TODO: organize methods (public first, private last)
 /**
  * This class allows operating with arbitrary data.

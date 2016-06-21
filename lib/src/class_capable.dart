@@ -4,14 +4,8 @@ part of domnode;
  * This class allows operating with CSS classes.
  */
 abstract class ClassCapable {
-  /**
-   * Gets the internal elements.
-   */
   List<Element> get elements;
 
-  /**
-   * Adds a class.
-   */
   void addClass(String className) {
     elements.forEach((Element element) {
       List<String> classes = _getClassMap(element);
@@ -23,9 +17,6 @@ abstract class ClassCapable {
     });
   }
 
-  /**
-   * Removes a class.
-   */
   void removeClass(String className) {
     elements.forEach((Element element) {
       List<String> classes = _getClassMap(element);
@@ -35,9 +26,6 @@ abstract class ClassCapable {
     });
   }
 
-  /**
-   * Does the class exist?
-   */
   bool hasClass(String className) {
     return elements.any((Element element) {
       List<String> classes = _getClassMap(element);
@@ -46,9 +34,6 @@ abstract class ClassCapable {
     });
   }
 
-  /**
-   * Gets the list of classes.
-   */
   List<String> _getClassMap(Element element) {
     List<String> ret = new List<String>();
     String classAttr = element.getAttribute('class');
@@ -66,9 +51,6 @@ abstract class ClassCapable {
     return ret;
   }
 
-  /**
-   * Sets a list of classes.
-   */
   void _setClassMap(Element element, List<String> classes) {
     element.setAttribute('class', classes.join(' '));
   }

@@ -4,21 +4,12 @@ part of domnode;
  * This class allows operating with attributes.
  */
 abstract class AttributeCapable {
-  /**
-   * Gets the internal elements.
-   */
   List<Element> get elements;
 
-  /**
-   * Does the attribute exist?
-   */
   bool hasAttribute(String name) {
     return elements.length > 0 ? elements[0].getAttribute(name) != null : false;
   }
 
-  /**
-   * Gets an attribute.
-   */
   String getAttr(String name) {
     String ret = '';
 
@@ -33,9 +24,6 @@ abstract class AttributeCapable {
     return ret;
   }
 
-  /**
-   * Sets an attribute.
-   */
   void setAttr(String name, Object value) {
     elements.forEach((Element element) {
       element.setAttribute(name, value.toString());

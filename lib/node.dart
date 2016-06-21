@@ -28,9 +28,6 @@ class DomNode extends IterableBase<DomNode>
   NodeValidator get validator => _validator;
   NodeTreeSanitizer get sanitizer => _sanitizer;
 
-  /**
-   * Creates a node.
-   */
   DomNode(String nodeName,
       {Map<String, Object> attrs,
       Object text,
@@ -38,12 +35,10 @@ class DomNode extends IterableBase<DomNode>
       void callback(DomNode target),
       NodeValidator validator,
       NodeTreeSanitizer sanitizer}) {
-    // default parameters
     if (validator == null && sanitizer == null) {
       sanitizer = new NullTreeSanitizer();
     }
 
-    // initialize variables
     _validator = validator;
     _sanitizer = sanitizer;
 
@@ -69,9 +64,6 @@ class DomNode extends IterableBase<DomNode>
     }
   }
 
-  /**
-   * Creates a node from a string.
-   */
   DomNode.fromString(String str, [String contentType = 'text/xml']) {
     DomParser parser = new DomParser();
     Document doc = parser.parseFromString(str, contentType);
@@ -79,30 +71,18 @@ class DomNode extends IterableBase<DomNode>
     _elements = [doc.documentElement];
   }
 
-  /**
-   * Creates a node from a document.
-   */
   DomNode.fromDocument(Document doc) {
     _elements = [doc.documentElement];
   }
 
-  /**
-   * Creates a node from an element.
-   */
   DomNode.fromElement(Element element) {
     _elements = [element];
   }
 
-  /**
-   * Creates a node from a list of elements.
-   */
   DomNode.fromList(List<Element> elements) {
     _elements = elements;
   }
 
-  /**
-   * Implements IterableBase.iterator
-   */
   Iterator<DomNode> get iterator {
     List<DomNode> ret = new List<DomNode>();
     int len = _elements.length;
@@ -140,20 +120,12 @@ class DomNode extends IterableBase<DomNode>
     return _elements.length > 0 ? _elements[0].nodeName : '';
   }
 
-  /**
-   * Gets the parent element.
-   *
-   * This function may return null if the element has no parent.
-   */
   DomNode getParent() {
     return _elements.length > 0
         ? new DomNode.fromElement(_elements[0].parent)
         : null;
   }
 
-  /**
-   * Removes the node.
-   */
   void remove() {
     while (_elements.length > 0) {
       Element element = _elements.removeLast();
@@ -162,9 +134,6 @@ class DomNode extends IterableBase<DomNode>
     }
   }
 
-  /**
-   * Gets a string representation of the object.
-   */
   String toString() {
     StringBuffer str = new StringBuffer();
 

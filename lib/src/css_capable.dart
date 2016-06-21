@@ -4,14 +4,8 @@ part of domnode;
  * This class allows operating with CSS attributes.
  */
 abstract class CssCapable {
-  /**
-   * Gets the internal elemeents.
-   */
   List<Element> get elements;
 
-  /**
-   * Sets a CSS attribute.
-   */
   void setCssAttr(String name, String value) {
     elements.forEach((Element element) {
       Map<String, String> attrs = getCssAttributeMap(element);
@@ -21,9 +15,6 @@ abstract class CssCapable {
     });
   }
 
-  /**
-   * Gets a CSS attribute.
-   */
   String getCssAttr(String name) {
     String ret = '';
 
@@ -39,9 +30,7 @@ abstract class CssCapable {
     return ret;
   }
 
-  /**
-   * Gets the list of attributes of an element.
-   */
+  // TODO: rename method
   Map<String, String> getCssAttributeMap(Element element) {
     Map<String, String> ret = new Map<String, String>();
     String css = element.getAttribute('style');
@@ -61,9 +50,6 @@ abstract class CssCapable {
     return ret;
   }
 
-  /**
-   * Sets the list of attributes of an element.
-   */
   void setCssAttributeMap(Element element, Map<String, String> attrs) {
     List<String> arr = new List<String>();
 
