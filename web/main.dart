@@ -1,7 +1,7 @@
 import 'package:domnode/core.dart';
 
 void main() {
-  DomNode span = $('span', text: 'This is a text')
+  DomNode span = new DomNode('span', text: 'This is a text')
     ..setAttr('data-test', 'lol')
     ..setHtml('<custom-component></custom-component>')
     ..append('<lalala></lalala>')
