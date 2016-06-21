@@ -1,6 +1,7 @@
 # DomNode
 
-A library to easily change and traverse DOM documents.
+A client-side library to manipulate and traverse DOM objects in a easy and
+intuitive way.
 
 ## How to install
 
@@ -29,8 +30,8 @@ void main() {
 ### Getting elements from a document
 
 `DomNode` is the main class of this library. It extends the `IterableBase`
-class, which means that you can think of it as a single node or multiple node.
-For example, consider the following code:
+class, which means that you can think of it as a single node or multiple nodes.
+Use the `$` method to find elements. For example, consider the following code:
 
 ```dart
 // gets a single node
