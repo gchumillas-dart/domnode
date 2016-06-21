@@ -29,22 +29,17 @@ class DomNode extends IterableBase<DomNode>
   NodeValidator get validator => _validator;
   NodeTreeSanitizer get sanitizer => _sanitizer;
 
-  // TODO: rename context by document
   /**
    * Creates a node.
    */
   DomNode(String nodeName,
-      {Document context,
-      Map<String, Object> attributes,
+      {Map<String, Object> attributes,
       Object text,
       Object html,
       void callback(DomNode target),
       NodeValidator validator,
       NodeTreeSanitizer sanitizer}) {
     // default parameters
-    if (context == null) {
-      context = document;
-    }
     if (validator == null && sanitizer == null) {
       sanitizer = new NullTreeSanitizer();
     }
@@ -53,7 +48,7 @@ class DomNode extends IterableBase<DomNode>
     _validator = validator;
     _sanitizer = sanitizer;
 
-    Element elem = context.createElement(nodeName);
+    Element elem = document.createElement(nodeName);
     _elements.add(elem);
 
     if (attributes != null) {
