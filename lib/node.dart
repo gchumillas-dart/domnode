@@ -52,7 +52,7 @@ class DomNode extends IterableBase<DomNode>
 
     if (attributes != null) {
       attributes.forEach((String name, Object value) {
-        attr(name, value);
+        setAttribute(name, value);
       });
     }
 
@@ -136,7 +136,7 @@ class DomNode extends IterableBase<DomNode>
   /**
    * Gets the node name.
    */
-  String name() {
+  String getName() {
     return _elements.length > 0 ? _elements[0].nodeName : '';
   }
 
@@ -145,7 +145,7 @@ class DomNode extends IterableBase<DomNode>
    *
    * This function may return null if the element has no parent.
    */
-  DomNode parent() {
+  DomNode getParent() {
     return _elements.length > 0
         ? new DomNode.fromElement(_elements[0].parent)
         : null;

@@ -10,27 +10,16 @@ abstract class AttributeCapable {
   List<Element> get elements;
 
   /**
-   * Gets or sets an attribute.
-   */
-  String attr(String name, [Object value]) {
-    if (value != null) {
-      _setAttribute(name, value.toString());
-    }
-
-    return _getAttribute(name);
-  }
-
-  /**
    * Does the attribute exist?
    */
-  bool hasAttr(String name) {
+  bool hasAttribute(String name) {
     return elements.length > 0 ? elements[0].getAttribute(name) != null : false;
   }
 
   /**
    * Gets an attribute.
    */
-  String _getAttribute(String name) {
+  String getAttribute(String name) {
     String ret = '';
 
     if (elements.length > 0) {
@@ -47,7 +36,7 @@ abstract class AttributeCapable {
   /**
    * Sets an attribute.
    */
-  void _setAttribute(String name, Object value) {
+  void setAttribute(String name, Object value) {
     elements.forEach((Element element) {
       element.setAttribute(name, value.toString());
     });
