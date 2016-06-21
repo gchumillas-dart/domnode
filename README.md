@@ -138,15 +138,15 @@ print(node);
 DomNode node = new DomNode.fromElement(myElement);
 ```
 
-### Creating complex nodes
+### Creating simple and complex nodes
 
 ```dart
-// create a span and appends it to the body
+// creates a span and appends it to the body
 DomNode node = new DomNode('span',
     attrs: {'id': 'span_id', 'title': 'Span Title'}, text: 'Some text here');
 $('body').append(node);
 
-// create a complex node
+// creates a complex node
 DomNode node = new DomNode('root', callback: (DomNode target) {
   // apends a new node with childNodes
   target.append(new DomNode('user', callback: (DomNode target) {
