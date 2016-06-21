@@ -3,7 +3,7 @@ part of dom_node;
 /**
  * This class allows operating with attributes.
  */
-abstract class DomNodeAttributeCapable {
+abstract class AttributeCapable {
   /**
    * Gets the internal elements.
    */

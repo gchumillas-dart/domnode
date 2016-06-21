@@ -3,7 +3,7 @@ part of dom_node;
 /**
  * This class allows operating with inner contents.
  */
-abstract class DomNodeContentCapable {
+abstract class ContentCapable {
   NodeValidator get validator;
   NodeTreeSanitizer get sanitizer;
   List<Element> get elements;

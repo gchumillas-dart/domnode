@@ -17,11 +17,11 @@ part 'src/null_tree_sanitizer.dart';
  */
 class DomNode extends IterableBase<DomNode>
     with
-        DomNodeAttributeCapable,
-        DomNodeCssCapable,
-        DomNodeClassCapable,
-        DomNodeDataCapable,
-        DomNodeContentCapable {
+        AttributeCapable,
+        CssCapable,
+        ClassCapable,
+        DataCapable,
+        ContentCapable {
   List<Element> _elements = [];
   NodeValidator _validator;
   NodeTreeSanitizer _sanitizer;

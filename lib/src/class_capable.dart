@@ -3,7 +3,7 @@ part of dom_node;
 /**
  * This class allows operating with CSS classes.
  */
-abstract class DomNodeClassCapable {
+abstract class ClassCapable {
   /**
    * Gets the internal elements.
    */

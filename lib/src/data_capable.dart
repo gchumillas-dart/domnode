@@ -3,7 +3,7 @@ part of dom_node;
 /**
  * This class allows operating with arbitrary data.
  */
-abstract class DomNodeDataCapable {
+abstract class DataCapable {
   /**
    * Data namespace.
    */
