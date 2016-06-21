@@ -25,6 +25,7 @@ class DomNode extends IterableBase<DomNode>
   List<Element> _elements = [];
   NodeValidator _validator;
   NodeTreeSanitizer _sanitizer;
+  List<Element> get elements => this._elements;
   NodeValidator get validator => _validator;
   NodeTreeSanitizer get sanitizer => _sanitizer;
 
@@ -117,16 +118,6 @@ class DomNode extends IterableBase<DomNode>
     }
 
     return ret.iterator;
-  }
-
-  // TODO: recode
-  /**
-   * Gets the internal elements.
-   *
-   * This getter is used by the 'capable' classes.
-   */
-  List<Element> get elements {
-    return this._elements;
   }
 
   /**
