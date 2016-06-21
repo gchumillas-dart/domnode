@@ -1,6 +1,6 @@
 # DomNode
 
-A library to easily traverse and manipulate DOM documents. It is inspired on the jQuery philosophy.
+A library to easily change and traverse DOM documents.
 
 ## How to install
 
