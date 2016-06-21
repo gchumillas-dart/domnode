@@ -4,13 +4,13 @@ library dom_node;
 import 'dart:collection';
 import 'dart:convert';
 import 'dart:html';
-import 'utils.dart';
-part 'attribute_capable.dart';
-part 'class_capable.dart';
-part 'content_capable.dart';
-part 'css_capable.dart';
-part 'data_capable.dart';
-part 'null_tree_sanitizer.dart';
+import 'src/utils.dart';
+part 'src/attribute_capable.dart';
+part 'src/class_capable.dart';
+part 'src/content_capable.dart';
+part 'src/css_capable.dart';
+part 'src/data_capable.dart';
+part 'src/null_tree_sanitizer.dart';
 
 /**
  * This class represents one or more DOM elements.

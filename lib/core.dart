@@ -1,6 +1,6 @@
 import 'dart:html';
-import 'dom/node.dart';
-export 'dom/node.dart' show DomNode;
+import 'node.dart';
+export 'node.dart' show DomNode;
 
 /**
  * Sugar syntax.
