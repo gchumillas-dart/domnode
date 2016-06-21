@@ -57,7 +57,7 @@ class DomNode extends IterableBase<DomNode>
     }
 
     if (text != null) {
-      this.text(text);
+      this.setInnerText(text);
     }
 
     if (html != null) {

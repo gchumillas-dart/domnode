@@ -9,17 +9,6 @@ abstract class ContentCapable {
   List<Element> get elements;
 
   /**
-   * Gets or sets inner text.
-   */
-  String text([Object value]) {
-    if (value != null) {
-      _setInnerText(value);
-    }
-
-    return _getInnerText();
-  }
-
-  /**
    * Removes all child nodes.
    */
   void clean() {
@@ -81,14 +70,14 @@ abstract class ContentCapable {
   /**
    * Gets inner text.
    */
-  String _getInnerText() {
+  String getInnerText() {
     return elements.length > 0 ? elements[0].text : '';
   }
 
   /**
    * Sets inner text.
    */
-  void _setInnerText(Object value) {
+  void setInnerText(Object value) {
     clean();
     elements.forEach((Element element) {
       element.text = value.toString();
