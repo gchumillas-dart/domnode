@@ -6,7 +6,7 @@ part of domnode;
 abstract class AttributeCapable {
   List<Element> get elements;
 
-  bool hasAttribute(String name) {
+  bool hasAttr(String name) {
     return elements.length > 0 ? elements[0].getAttribute(name) != null : false;
   }
 
