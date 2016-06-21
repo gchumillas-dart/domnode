@@ -32,7 +32,7 @@ class DomNode extends IterableBase<DomNode>
    * Creates a node.
    */
   DomNode(String nodeName,
-      {Map<String, Object> attributes,
+      {Map<String, Object> attrs,
       Object text,
       Object html,
       void callback(DomNode target),
@@ -50,8 +50,8 @@ class DomNode extends IterableBase<DomNode>
     Element elem = document.createElement(nodeName);
     _elements.add(elem);
 
-    if (attributes != null) {
-      attributes.forEach((String name, Object value) {
+    if (attrs != null) {
+      attrs.forEach((String name, Object value) {
         setAttr(name, value);
       });
     }

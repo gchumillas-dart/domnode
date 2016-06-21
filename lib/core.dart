@@ -12,14 +12,14 @@ export 'node.dart' show DomNode;
  * var node = $('span', attributes: {'id': 'span_id'});
  */
 DomNode $(String nodeName,
-        {Map<String, Object> attributes,
+        {Map<String, Object> attrs,
         Object text,
         Object html,
         void callback(DomNode target),
         NodeValidator validator,
         NodeTreeSanitizer sanitizer}) =>
     new DomNode(nodeName,
-        attributes: attributes,
+        attrs: attrs,
         text: text,
         html: html,
         callback: callback,
