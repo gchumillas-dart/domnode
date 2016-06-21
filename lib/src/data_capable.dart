@@ -1,5 +1,7 @@
 part of domnode;
 
+// TODO: remove redundant comments
+// TODO: organize methods (public first, private last)
 /**
  * This class allows operating with arbitrary data.
  */
@@ -13,17 +15,6 @@ abstract class DataCapable {
    * Gets the internal elements.
    */
   List<Element> get elements;
-
-  /**
-   * Gets or sets data.
-   */
-  Object data(String name, [Object value]) {
-    if (value != null) {
-      _setData(name, value);
-    }
-
-    return _getData(name);
-  }
 
   /**
    * Gets arbitrary data from an element.
@@ -45,7 +36,7 @@ abstract class DataCapable {
   /**
    * Gets arbitrary data.
    */
-  Object _getData(String name) {
+  Object getData(String name) {
     String str = null;
 
     if (elements.length > 0) {
@@ -62,7 +53,7 @@ abstract class DataCapable {
   /**
    * Sets arbitrary data.
    */
-  void _setData(String name, Object value) {
+  void setData(String name, Object value) {
     elements.forEach((Element element) {
       Map<String, dynamic> data = _getDataObject(element);
 
