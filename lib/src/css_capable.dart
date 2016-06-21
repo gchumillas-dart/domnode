@@ -10,36 +10,25 @@ abstract class CssCapable {
   List<Element> get elements;
 
   /**
-   * Gets or sets a CSS attribute.
-   */
-  String css(String name, [String value]) {
-    if (value != null) {
-      _setCssAttribute(name, value);
-    }
-
-    return _getCssAttribute(name);
-  }
-
-  /**
    * Sets a CSS attribute.
    */
-  void _setCssAttribute(String name, String value) {
+  void setCssAttribute(String name, String value) {
     elements.forEach((Element element) {
-      Map<String, String> attrs = _getCssAttributeMap(element);
+      Map<String, String> attrs = getCssAttributeMap(element);
 
       attrs[name] = value;
-      _setCssAttributeMap(element, attrs);
+      setCssAttributeMap(element, attrs);
     });
   }
 
   /**
    * Gets a CSS attribute.
    */
-  String _getCssAttribute(String name) {
+  String getCssAttribute(String name) {
     String ret = '';
 
     if (elements.length > 0) {
-      Map<String, String> attrs = _getCssAttributeMap(elements[0]);
+      Map<String, String> attrs = getCssAttributeMap(elements[0]);
 
       name = name.toLowerCase();
       if (attrs.containsKey(name)) {
@@ -53,7 +42,7 @@ abstract class CssCapable {
   /**
    * Gets the list of attributes of an element.
    */
-  Map<String, String> _getCssAttributeMap(Element element) {
+  Map<String, String> getCssAttributeMap(Element element) {
     Map<String, String> ret = new Map<String, String>();
     String css = element.getAttribute('style');
 
@@ -75,7 +64,7 @@ abstract class CssCapable {
   /**
    * Sets the list of attributes of an element.
    */
-  void _setCssAttributeMap(Element element, Map<String, String> attrs) {
+  void setCssAttributeMap(Element element, Map<String, String> attrs) {
     List<String> arr = new List<String>();
 
     attrs.keys.forEach((String key) {
