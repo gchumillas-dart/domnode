@@ -19,7 +19,7 @@ abstract class AttributeCapable {
   /**
    * Gets an attribute.
    */
-  String getAttribute(String name) {
+  String getAttr(String name) {
     String ret = '';
 
     if (elements.length > 0) {
@@ -36,7 +36,7 @@ abstract class AttributeCapable {
   /**
    * Sets an attribute.
    */
-  void setAttribute(String name, Object value) {
+  void setAttr(String name, Object value) {
     elements.forEach((Element element) {
       element.setAttribute(name, value.toString());
     });

@@ -2,11 +2,11 @@ import 'package:domnode/core.dart';
 
 void main() {
   DomNode span = $('span', text: 'This is a text')
-    ..setAttribute('ups', 'lol')
+    ..setAttr('ups', 'lol')
     ..setHtml('<custom-component></custom-component>')
     ..append('<lalala></lalala>')
     ..prepend('<ups>jejeje</ups>');
-  print(span.getText());
+  print(span);
   /*
   Iterable<DomNode> node = $('root', callback: (DomNode target) {
     // apends a new node with childNodes

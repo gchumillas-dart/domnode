@@ -52,7 +52,7 @@ class DomNode extends IterableBase<DomNode>
 
     if (attributes != null) {
       attributes.forEach((String name, Object value) {
-        setAttribute(name, value);
+        setAttr(name, value);
       });
     }
 
