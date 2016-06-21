@@ -1,3 +1,4 @@
+// TODO: rename library: domnode
 library dom_node;
 
 import 'dart:collection';
@@ -9,6 +10,7 @@ part 'class_capable.dart';
 part 'content_capable.dart';
 part 'css_capable.dart';
 part 'data_capable.dart';
+part 'null_tree_sanitizer.dart';
 
 /**
  * This class represents one or more DOM elements.
@@ -20,11 +22,13 @@ class DomNode extends IterableBase<DomNode>
         DomNodeClassCapable,
         DomNodeDataCapable,
         DomNodeContentCapable {
-  /**
-   * List of elements.
-   */
   List<Element> _elements = [];
+  NodeValidator _validator;
+  NodeTreeSanitizer _sanitizer;
+  NodeValidator get validator => _validator;
+  NodeTreeSanitizer get sanitizer => _sanitizer;
 
+  // TODO: rename context by document
   /**
    * Creates a node.
    */
@@ -33,10 +37,20 @@ class DomNode extends IterableBase<DomNode>
       Map<String, Object> attributes,
       Object text,
       Object html,
-      void callback(DomNode target)}) {
+      void callback(DomNode target),
+      NodeValidator validator,
+      NodeTreeSanitizer sanitizer}) {
+    // default parameters
     if (context == null) {
       context = document;
     }
+    if (validator == null && sanitizer == null) {
+      sanitizer = new NullTreeSanitizer();
+    }
+
+    // initialize variables
+    _validator = validator;
+    _sanitizer = sanitizer;
 
     Element elem = context.createElement(nodeName);
     _elements.add(elem);
@@ -105,6 +119,7 @@ class DomNode extends IterableBase<DomNode>
     return ret.iterator;
   }
 
+  // TODO: recode
   /**
    * Gets the internal elements.
    *

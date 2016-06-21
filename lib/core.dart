@@ -16,13 +16,17 @@ DomNode $(String nodeName,
         Map<String, Object> attributes,
         Object text,
         Object html,
-        void callback(DomNode target)}) =>
+        void callback(DomNode target),
+        NodeValidator validator,
+        NodeTreeSanitizer sanitizer}) =>
     new DomNode(nodeName,
         context: context,
         attributes: attributes,
         text: text,
         html: html,
-        callback: callback);
+        callback: callback,
+        validator: validator,
+        sanitizer: sanitizer);
 
 /**
  * Searches nodes by CSS selectors.

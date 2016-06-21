@@ -4,6 +4,8 @@ part of dom_node;
  * This class allows operating with inner contents.
  */
 abstract class DomNodeContentCapable {
+  NodeValidator get validator;
+  NodeTreeSanitizer get sanitizer;
   List<Element> get elements;
 
   /**
@@ -44,7 +46,8 @@ abstract class DomNodeContentCapable {
    */
   void append(Object obj) {
     elements.forEach((Element element) {
-      element.insertAdjacentHtml('beforeend', obj.toString());
+      element.insertAdjacentHtml('beforeend', obj.toString(),
+          validator: validator, treeSanitizer: sanitizer);
     });
   }
 
@@ -53,7 +56,8 @@ abstract class DomNodeContentCapable {
    */
   void prepend(Object obj) {
     elements.forEach((Element element) {
-      element.insertAdjacentHtml('afterbegin', obj.toString());
+      element.insertAdjacentHtml('afterbegin', obj.toString(),
+          validator: validator, treeSanitizer: sanitizer);
     });
   }
 
@@ -80,7 +84,8 @@ abstract class DomNodeContentCapable {
   void _setInnerHtml(Object value) {
     clean();
     elements.forEach((Element element) {
-      element.appendHtml(value.toString());
+      element.appendHtml(value.toString(),
+          validator: validator, treeSanitizer: sanitizer);
     });
   }
 
