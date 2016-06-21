@@ -70,14 +70,14 @@ abstract class ContentCapable {
   /**
    * Gets inner text.
    */
-  String getInnerText() {
+  String getText() {
     return elements.length > 0 ? elements[0].text : '';
   }
 
   /**
    * Sets inner text.
    */
-  void setInnerText(Object value) {
+  void setText(Object value) {
     clean();
     elements.forEach((Element element) {
       element.text = value.toString();

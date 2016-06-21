@@ -6,7 +6,7 @@ void main() {
     ..setInnerHtml('<custom-component></custom-component>')
     ..append('<lalala></lalala>')
     ..prepend('<ups>jejeje</ups>');
-  print(span.getInnerHtml());
+  print(span.getText());
   /*
   Iterable<DomNode> node = $('root', callback: (DomNode target) {
     // apends a new node with childNodes
