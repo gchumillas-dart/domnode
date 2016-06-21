@@ -30,7 +30,7 @@ class DomNode extends IterableBase<DomNode>
    */
   DomNode(String nodeName,
       {Document context,
-      Map<String, String> attributes,
+      Map<String, Object> attributes,
       Object text,
       Object html,
       void callback(DomNode target)}) {
