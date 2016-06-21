@@ -34,59 +34,61 @@ For example, consider the following code:
 
 ```dart
 // gets a single node
-DomNode node = domQuery('h1');
-print(node);
+DomNode node = $('h1');
+if (node.length == 0) {
+  print('Node not found');
+}
 
 // gests multiple nodes
-Iterable<DomNode> nodes = domQuery('p');
+Iterable<DomNode> nodes = $('p');
 nodes.forEach((DomNode node) {
   print(node);
 });
 ```
 
-In both cases `domQuery()` returns a `DomNode` object. But in the first case we
+In both cases `$()` returns a `DomNode` object. But in the first case we
 access a single node and in the second case we traverse multiple nodes.
 
 ### Attributes
 
 ```dart
 // gets an attribute
-print(domQuery('a[id="anchor1"]').getAttr('href'));
+print($('a[id="anchor1"]').getAttr('href'));
 
 // sets an attribute
-domQuery('a[id="anchor1"]').setAttr('title', 'New title');
+$('a[id="anchor1"]').setAttr('title', 'New title');
 
 // does the attribute exist?
-assert(domQuery('a[id="anchor1"]').hasAttr('id'));
+assert($('a[id="anchor1"]').hasAttr('id'));
 ```
 
 ### CSS attributes
 
 ```dart
 // gets a CSS attribute
-print(domQuery('h1').getCssAttr('background-color'));
+print($('h1').getCssAttr('background-color'));
 
 // sets a CSS attribute
-domQuery('h1').setCssAttr('background-color', 'yellow');
+$('h1').setCssAttr('background-color', 'yellow');
 ```
 
 ### CSS classes
 
 ```dart
 // adds a class
-domQuery('h1').addClass('class1');
+$('h1').addClass('class1');
 
 // removes a class
-domQuery('h1').removeClass('class1');
+$('h1').removeClass('class1');
 
 // does the class exist?
-assert(domQuery('h1').hasClass('class1'));
+assert($('h1').hasClass('class1'));
 ```
 
 ### Inner contents
 
 ```dart
-DomNode body = domQuery('body');
+DomNode body = $('body');
 
 // appends a new element
 body.append('<p>New paragraph</p>');
@@ -95,29 +97,29 @@ body.append('<p>New paragraph</p>');
 body.prepend('<p>New paragraph at the beginning</p>');
 
 // gets the inner text of a single element
-print(domQuery('h1').getText());
+print($('h1').getText());
 
 // changes the inner text of a single element
-domQuery('h1').setText('New title');
+$('h1').setText('New title');
 
 // gets the inner html of a single element
-print(domQuery('p[id="p1"]').getHtml());
+print($('p[id="p1"]').getHtml());
 
 // sets the inner html of a single element
-domQuery('p[id="p1"]').setHtml('This is text is <em>italic</em>');
+$('p[id="p1"]').setHtml('This is text is <em>italic</em>');
 
 // removes all childnodes of an element
-domQuery('div[id="div1"]').clean();
+$('div[id="div1"]').clean();
 ```
 
 ### Saving arbitrary data
 
 ```dart
 // sets arbitrary data to an element
-domQuery('h1').setData('test', {'one': 1, 'two': 2, 'three': 3});
+$('h1').setData('test', {'one': 1, 'two': 2, 'three': 3});
 
 // gets data from an element
-print(domQuery('h1').getData('test'));
+print($('h1').getData('test'));
 ```
 
 ### Creating instances from a given source
@@ -141,24 +143,24 @@ You can use the '$' method to create DomNode elements.
 
 ```dart
 // create a span and appends it to the body
-DomNode node = $('span',
+DomNode node = new DomNode('span',
     attrs: {'id': 'span_id', 'title': 'Span Title'}, text: 'Some text here');
-domQuery('body').append(node);
+$('body').append(node);
 
 // create a complex node
-DomNode node = $('root', callback: (DomNode target) {
+DomNode node = new DomNode('root', callback: (DomNode target) {
   // apends a new node with childNodes
-  target.append($('user', callback: (DomNode target) {
-    target.append($('first-name', text: 'James'));
-    target.append($('last-name', text: 'Bond'));
-    target.append($('age', text: 158));
-    target.append($('bio', html: 'My name is Bond, <em>James Bond</em>'));
+  target.append(new DomNode('user', callback: (DomNode target) {
+    target.append(new DomNode('first-name', text: 'James'));
+    target.append(new DomNode('last-name', text: 'Bond'));
+    target.append(new DomNode('age', text: 158));
+    target.append(new DomNode('bio', html: 'My name is Bond, <em>James Bond</em>'));
   }));
 
   // appends more items
-  target.append($('item', attrs: {'id': '101', 'title': 'Item 1'}));
-  target.append($('item', attrs: {'id': '102', 'title': 'Item 2'}));
-  target.append($('item', attrs: {'id': '103', 'title': 'Item 3'}));
+  target.append(new DomNode('item', attrs: {'id': '101', 'title': 'Item 1'}));
+  target.append(new DomNode('item', attrs: {'id': '102', 'title': 'Item 2'}));
+  target.append(new DomNode('item', attrs: {'id': '103', 'title': 'Item 3'}));
 
   // prepends raw content
   target.prepend('<summary>Look at my horse, my horse is amazing</summary>');
