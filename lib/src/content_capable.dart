@@ -9,17 +9,6 @@ abstract class ContentCapable {
   List<Element> get elements;
 
   /**
-   * Gets or sets inner html.
-   */
-  String html([Object value]) {
-    if (value != null) {
-      _setInnerHtml(value);
-    }
-
-    return _getInnerHtml();
-  }
-
-  /**
    * Gets or sets inner text.
    */
   String text([Object value]) {
@@ -64,7 +53,7 @@ abstract class ContentCapable {
   /**
    * Gets inner html.
    */
-  String _getInnerHtml() {
+  String getInnerHtml() {
     StringBuffer ret = new StringBuffer();
 
     if (elements.length > 0) {
@@ -81,7 +70,7 @@ abstract class ContentCapable {
   /**
    * Sets inner html.
    */
-  void _setInnerHtml(Object value) {
+  void setInnerHtml(Object value) {
     clean();
     elements.forEach((Element element) {
       element.appendHtml(value.toString(),
