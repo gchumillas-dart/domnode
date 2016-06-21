@@ -1,5 +1,4 @@
-// TODO: rename library: domnode
-library dom_node;
+library domnode;
 
 import 'dart:collection';
 import 'dart:convert';

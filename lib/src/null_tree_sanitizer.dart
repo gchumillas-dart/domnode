@@ -1,4 +1,4 @@
-part of dom_node;
+part of domnode;
 
 class NullTreeSanitizer implements NodeTreeSanitizer {
   void sanitizeTree(Node node) {}

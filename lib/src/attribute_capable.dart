@@ -1,4 +1,4 @@
-part of dom_node;
+part of domnode;
 
 /**
  * This class allows operating with attributes.
