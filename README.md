@@ -139,8 +139,6 @@ DomNode node = new DomNode.fromElement(myElement);
 
 ### Creating complex nodes
 
-You can use the '$' method to create DomNode elements.
-
 ```dart
 // create a span and appends it to the body
 DomNode node = new DomNode('span',
