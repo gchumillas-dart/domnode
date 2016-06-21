@@ -8,10 +8,10 @@ abstract class CssCapable {
 
   void setCssAttr(String name, String value) {
     elements.forEach((Element element) {
-      Map<String, String> attrs = getCssAttrMap(element);
+      Map<String, String> attrs = _getCssAttrMap(element);
 
       attrs[name] = value;
-      setCssAttrMap(element, attrs);
+      _setCssAttrMap(element, attrs);
     });
   }
 
@@ -19,7 +19,7 @@ abstract class CssCapable {
     String ret = '';
 
     if (elements.length > 0) {
-      Map<String, String> attrs = getCssAttrMap(elements[0]);
+      Map<String, String> attrs = _getCssAttrMap(elements[0]);
 
       name = name.toLowerCase();
       if (attrs.containsKey(name)) {
@@ -30,7 +30,7 @@ abstract class CssCapable {
     return ret;
   }
 
-  Map<String, String> getCssAttrMap(Element element) {
+  Map<String, String> _getCssAttrMap(Element element) {
     Map<String, String> ret = new Map<String, String>();
     String css = element.getAttribute('style');
 
@@ -49,7 +49,7 @@ abstract class CssCapable {
     return ret;
   }
 
-  void setCssAttrMap(Element element, Map<String, String> attrs) {
+  void _setCssAttrMap(Element element, Map<String, String> attrs) {
     List<String> arr = new List<String>();
 
     attrs.keys.forEach((String key) {
