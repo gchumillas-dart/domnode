@@ -12,7 +12,7 @@ abstract class CssCapable {
   /**
    * Sets a CSS attribute.
    */
-  void setCssAttribute(String name, String value) {
+  void setCssAttr(String name, String value) {
     elements.forEach((Element element) {
       Map<String, String> attrs = getCssAttributeMap(element);
 
@@ -24,7 +24,7 @@ abstract class CssCapable {
   /**
    * Gets a CSS attribute.
    */
-  String getCssAttribute(String name) {
+  String getCssAttr(String name) {
     String ret = '';
 
     if (elements.length > 0) {
