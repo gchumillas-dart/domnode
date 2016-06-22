@@ -17,6 +17,10 @@ abstract class ClassCapable {
     });
   }
 
+  void toggleClass(String className) {
+    hasClass(className) ? addClass(className) : removeClass(className);
+  }
+
   void removeClass(String className) {
     elements.forEach((Element element) {
       List<String> classes = _getClassMap(element);
