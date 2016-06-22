@@ -18,7 +18,7 @@ abstract class ClassCapable {
   }
 
   void toggleClass(String className) {
-    hasClass(className) ? addClass(className) : removeClass(className);
+    hasClass(className) ? removeClass(className) : addClass(className);
   }
 
   void removeClass(String className) {
