@@ -82,6 +82,9 @@ $('h1').addClass('class1');
 // removes a class
 $('h1').removeClass('class1');
 
+// adds or removes a class
+$('h1').toggleClass('class1');
+
 // does the class exist?
 assert($('h1').hasClass('class1'));
 ```
@@ -138,7 +141,7 @@ print(node);
 DomNode node = new DomNode.fromElement(myElement);
 ```
 
-### Creating simple and complex nodes
+### Creating nodes from scratch
 
 ```dart
 // creates a span and appends it to the body
@@ -153,7 +156,8 @@ DomNode node = new DomNode('root', callback: (DomNode target) {
     target.append(new DomNode('first-name', text: 'James'));
     target.append(new DomNode('last-name', text: 'Bond'));
     target.append(new DomNode('age', text: 158));
-    target.append(new DomNode('bio', html: 'My name is Bond, <em>James Bond</em>'));
+    target.append(
+      new DomNode('bio', html: 'My name is Bond, <em>James Bond</em>'));
   }));
 
   // appends more items
