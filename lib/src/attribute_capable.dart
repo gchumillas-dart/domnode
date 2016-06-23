@@ -11,7 +11,7 @@ abstract class AttributeCapable {
   }
 
   String getAttr(String name) {
-    return elements.length > 0 ? elements[0].getAttribute(name) : null;
+    return elements.length > 0 ? elements[0].getAttribute(name) : '';
   }
 
   void setAttr(String name, Object value) {

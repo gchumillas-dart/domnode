@@ -3,6 +3,9 @@ library domnode;
 import 'dart:collection';
 import 'dart:convert';
 import 'dart:html';
+
+import 'package:html_unescape/html_unescape.dart';
+
 import 'src/utils.dart';
 part 'src/attribute_capable.dart';
 part 'src/class_capable.dart';

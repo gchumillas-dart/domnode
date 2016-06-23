@@ -71,16 +71,18 @@ abstract class ContentCapable {
    * Gets inner text.
    */
   String getText() {
-    return elements.length > 0 ? elements[0].text : '';
+    HtmlUnescape decoder = new HtmlUnescape();
+    return elements.length > 0 ? decoder.convert(elements[0].text) : '';
   }
 
   /**
    * Sets inner text.
    */
   void setText(Object value) {
+    HtmlEscape encoder = new HtmlEscape();
     clean();
     elements.forEach((Element element) {
-      element.text = value.toString();
+      element.text = encoder.convert(value.toString());
     });
   }
 }
