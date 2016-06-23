@@ -42,7 +42,7 @@ abstract class ContentCapable {
   /**
    * Gets inner html.
    */
-  String get html {
+  String getHtml() {
     StringBuffer ret = new StringBuffer();
 
     if (elements.length > 0) {
@@ -59,7 +59,7 @@ abstract class ContentCapable {
   /**
    * Sets inner html.
    */
-  void set html(Object value) {
+  void setHtml(Object value) {
     clean();
     elements.forEach((Element element) {
       element.appendHtml(value.toString(),
