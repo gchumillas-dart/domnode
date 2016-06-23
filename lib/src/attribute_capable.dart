@@ -19,4 +19,10 @@ abstract class AttributeCapable {
       element.setAttribute(name, value.toString());
     });
   }
+
+  void removeAttr(String name) {
+    elements.forEach((Element element) {
+      element.attributes.remove(name);
+    });
+  }
 }
