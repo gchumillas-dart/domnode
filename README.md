@@ -116,6 +116,32 @@ $('p[id="p1"]').setHtml('This is text is <em>italic</em>');
 $('div[id="div1"]').clean();
 ```
 
+### Metrics
+```dart
+DomNode node = $('.myDiv');
+
+// sets node size
+node
+  ..setWidth(640)
+  ..setHeight(480);
+print('width: ' + node.getWidth() + ', height: ' + node.getHeight());
+
+// sets 'inner' size (includes padding size)
+node
+  ..setInnerWidth(640)
+  ..setInnerHeight(480);
+
+// sets 'outer' size (includes padding and border sizes)
+node
+  ..setOuterWidth(640)
+  ..setOuterHeight(480);
+
+// sets 'outer' size (includes padding, border and margin sizes)
+node
+  ..setOuterWidth(640, includeMargin: true)
+  ..setOuterHeight(480, includMargin: true);
+```
+
 ### Saving arbitrary data
 
 ```dart
