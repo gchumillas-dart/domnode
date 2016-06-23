@@ -7,6 +7,7 @@ import 'dart:html';
 import 'package:html_unescape/html_unescape.dart';
 
 import 'src/utils.dart';
+
 part 'src/attribute_capable.dart';
 part 'src/class_capable.dart';
 part 'src/content_capable.dart';
@@ -27,10 +28,6 @@ class DomNode extends IterableBase<DomNode>
   List<Element> _elements = [];
   NodeValidator _validator;
   NodeTreeSanitizer _sanitizer;
-  List<Element> get elements => this._elements;
-  NodeValidator get validator => _validator;
-  NodeTreeSanitizer get sanitizer => _sanitizer;
-
   DomNode(String nodeName,
       {Map<String, Object> attrs,
       Object text,
@@ -66,6 +63,16 @@ class DomNode extends IterableBase<DomNode>
       Function.apply(callback, [this]);
     }
   }
+  DomNode.fromDocument(Document doc) {
+    _elements = [doc.documentElement];
+  }
+  DomNode.fromElement(Element element) {
+    _elements = [element];
+  }
+
+  DomNode.fromList(List<Element> elements) {
+    _elements = elements;
+  }
 
   DomNode.fromString(String str, [String contentType = 'text/xml']) {
     DomParser parser = new DomParser();
@@ -74,17 +81,7 @@ class DomNode extends IterableBase<DomNode>
     _elements = [doc.documentElement];
   }
 
-  DomNode.fromDocument(Document doc) {
-    _elements = [doc.documentElement];
-  }
-
-  DomNode.fromElement(Element element) {
-    _elements = [element];
-  }
-
-  DomNode.fromList(List<Element> elements) {
-    _elements = elements;
-  }
+  List<Element> get elements => this._elements;
 
   Iterator<DomNode> get iterator {
     List<DomNode> ret = new List<DomNode>();
@@ -95,6 +92,27 @@ class DomNode extends IterableBase<DomNode>
     }
 
     return ret.iterator;
+  }
+
+  NodeTreeSanitizer get sanitizer => _sanitizer;
+
+  NodeValidator get validator => _validator;
+
+  String getData(String name) {
+    return JSON.decode(getAttr(['data', name].join('-')));
+  }
+
+  /**
+   * Gets the node name.
+   */
+  String getName() {
+    return _elements.length > 0 ? _elements[0].nodeName : '';
+  }
+
+  DomNode getParent() {
+    return _elements.length > 0
+        ? new DomNode.fromElement(_elements[0].parent)
+        : null;
   }
 
   /**
@@ -116,33 +134,16 @@ class DomNode extends IterableBase<DomNode>
     return new DomNode.fromList(elements);
   }
 
-  /**
-   * Gets the node name.
-   */
-  String getName() {
-    return _elements.length > 0 ? _elements[0].nodeName : '';
-  }
-
-  DomNode getParent() {
-    return _elements.length > 0
-        ? new DomNode.fromElement(_elements[0].parent)
-        : null;
-  }
-
-  String getData(String name) {
-    return JSON.decode(getAttr(['data', name].join('-')));
-  }
-
-  void setData(String name, Object value) {
-    setAttr(['data', name].join('-'), JSON.encode(value));
-  }
-
   void remove() {
     while (_elements.length > 0) {
       Element element = _elements.removeLast();
 
       element.remove();
     }
+  }
+
+  void setData(String name, Object value) {
+    setAttr(['data', name].join('-'), JSON.encode(value));
   }
 
   String toString() {

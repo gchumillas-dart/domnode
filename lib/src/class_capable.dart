@@ -17,8 +17,12 @@ abstract class ClassCapable {
     });
   }
 
-  void toggleClass(String className) {
-    hasClass(className) ? removeClass(className) : addClass(className);
+  bool hasClass(String className) {
+    return elements.any((Element element) {
+      List<String> classes = _getClassMap(element);
+
+      return classes.contains(className);
+    });
   }
 
   void removeClass(String className) {
@@ -30,12 +34,8 @@ abstract class ClassCapable {
     });
   }
 
-  bool hasClass(String className) {
-    return elements.any((Element element) {
-      List<String> classes = _getClassMap(element);
-
-      return classes.contains(className);
-    });
+  void toggleClass(String className) {
+    hasClass(className) ? removeClass(className) : addClass(className);
   }
 
   List<String> _getClassMap(Element element) {

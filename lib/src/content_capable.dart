@@ -4,20 +4,9 @@ part of domnode;
  * This class allows operating with inner contents.
  */
 abstract class ContentCapable {
-  NodeValidator get validator;
-  NodeTreeSanitizer get sanitizer;
   List<Element> get elements;
-
-  /**
-   * Removes all child nodes.
-   */
-  void clean() {
-    elements.forEach((Element element) {
-      while (element.hasChildNodes()) {
-        element.firstChild.remove();
-      }
-    });
-  }
+  NodeTreeSanitizer get sanitizer;
+  NodeValidator get validator;
 
   /**
    * Appends content.
@@ -30,12 +19,13 @@ abstract class ContentCapable {
   }
 
   /**
-   * Prepends content.
+   * Removes all child nodes.
    */
-  void prepend(Object obj) {
+  void clean() {
     elements.forEach((Element element) {
-      element.insertAdjacentHtml('afterbegin', obj.toString(),
-          validator: validator, treeSanitizer: sanitizer);
+      while (element.hasChildNodes()) {
+        element.firstChild.remove();
+      }
     });
   }
 
@@ -57,6 +47,24 @@ abstract class ContentCapable {
   }
 
   /**
+   * Gets inner text.
+   */
+  String getText() {
+    HtmlUnescape decoder = new HtmlUnescape();
+    return elements.length > 0 ? decoder.convert(elements[0].text) : '';
+  }
+
+  /**
+   * Prepends content.
+   */
+  void prepend(Object obj) {
+    elements.forEach((Element element) {
+      element.insertAdjacentHtml('afterbegin', obj.toString(),
+          validator: validator, treeSanitizer: sanitizer);
+    });
+  }
+
+  /**
    * Sets inner html.
    */
   void setHtml(Object value) {
@@ -65,14 +73,6 @@ abstract class ContentCapable {
       element.appendHtml(value.toString(),
           validator: validator, treeSanitizer: sanitizer);
     });
-  }
-
-  /**
-   * Gets inner text.
-   */
-  String getText() {
-    HtmlUnescape decoder = new HtmlUnescape();
-    return elements.length > 0 ? decoder.convert(elements[0].text) : '';
   }
 
   /**

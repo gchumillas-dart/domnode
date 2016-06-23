@@ -1,5 +1,7 @@
 import 'dart:html';
+
 import 'node.dart';
+
 export 'node.dart' show DomNode;
 
 /**

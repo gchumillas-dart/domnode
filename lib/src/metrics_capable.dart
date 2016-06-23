@@ -6,41 +6,44 @@ part of domnode;
 abstract class MetricsCapable {
   List<Element> get elements;
 
-  num getWidth() => _getSumPropertyValues(['width']);
-  void setWidth(num value) {
-    for (Element element in elements) {
-      element.style.width = '${value}px';
-    }
-  }
+  num getBorderHeight() =>
+      _getSumPropertyValues(['border-top-width', 'border-bottom-width']);
+  num getBorderWidth() =>
+      _getSumPropertyValues(['border-left-width', 'border-right-width']);
 
   num getHeight() => _getSumPropertyValues(['height']);
+  num getInnerHeight() => getHeight() + getPaddingHeight();
+
+  num getInnerWidth() => getWidth() + getPaddingWidth();
+  num getMarginHeight() =>
+      _getSumPropertyValues(['margin-top', 'margin-bottom']);
+
+  num getMarginWidth() =>
+      _getSumPropertyValues(['margin-left', 'margin-right']);
+  num getOuterHeight([bool includeMargin]) =>
+      getInnerHeight() +
+      getBorderHeight() +
+      (includeMargin ? getMarginHeight() : 0);
+
+  num getOuterWidth([bool includeMargin]) =>
+      getInnerWidth() +
+      getBorderWidth() +
+      (includeMargin ? getMarginWidth() : 0);
+  num getPaddingHeight() =>
+      _getSumPropertyValues(['padding-top', 'padding-bottom']);
+
+  num getPaddingWidth() =>
+      _getSumPropertyValues(['padding-left', 'padding-right']);
+  num getWidth() => _getSumPropertyValues(['width']);
+
   void setHeight(num value) {
     for (Element element in elements) {
       element.style.height = '${value}px';
     }
   }
 
-  num getInnerWidth() => getWidth() + getPaddingWidth();
-  void setInnerWidth(num value) => setWidth(value - getPaddingWidth());
-
-  num getInnerHeight() => getHeight() + getPaddingHeight();
   void setInnerHeight(num value) => setHeight(value - getPaddingHeight());
-
-  num getOuterWidth([bool includeMargin]) =>
-      getInnerWidth() +
-      getBorderWidth() +
-      (includeMargin ? getMarginWidth() : 0);
-  void setOuterWidth(num value, [bool includeMargin]) {
-    setWidth(value -
-        getPaddingWidth() -
-        getBorderWidth() -
-        (includeMargin ? getMarginWidth() : 0));
-  }
-
-  num getOuterHeight([bool includeMargin]) =>
-      getInnerHeight() +
-      getBorderHeight() +
-      (includeMargin ? getMarginHeight() : 0);
+  void setInnerWidth(num value) => setWidth(value - getPaddingWidth());
   void setOuterHeight(num value, [bool includeMargin]) {
     setHeight(value -
         getPaddingHeight() -
@@ -48,18 +51,18 @@ abstract class MetricsCapable {
         (includeMargin ? getMarginHeight() : 0));
   }
 
-  num getPaddingWidth() =>
-      _getSumPropertyValues(['padding-left', 'padding-right']);
-  num getPaddingHeight() =>
-      _getSumPropertyValues(['padding-top', 'padding-bottom']);
-  num getBorderWidth() =>
-      _getSumPropertyValues(['border-left-width', 'border-right-width']);
-  num getBorderHeight() =>
-      _getSumPropertyValues(['border-top-width', 'border-bottom-width']);
-  num getMarginWidth() =>
-      _getSumPropertyValues(['margin-left', 'margin-right']);
-  num getMarginHeight() =>
-      _getSumPropertyValues(['margin-top', 'margin-bottom']);
+  void setOuterWidth(num value, [bool includeMargin]) {
+    setWidth(value -
+        getPaddingWidth() -
+        getBorderWidth() -
+        (includeMargin ? getMarginWidth() : 0));
+  }
+
+  void setWidth(num value) {
+    for (Element element in elements) {
+      element.style.width = '${value}px';
+    }
+  }
 
   num _getSumPropertyValues(List<String> propertyNames) {
     num ret = 0;

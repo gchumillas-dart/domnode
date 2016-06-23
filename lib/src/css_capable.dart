@@ -6,15 +6,6 @@ part of domnode;
 abstract class CssCapable {
   List<Element> get elements;
 
-  void setCssAttr(String name, String value) {
-    elements.forEach((Element element) {
-      Map<String, String> attrs = _getCssAttrMap(element);
-
-      attrs[name] = value;
-      _setCssAttrMap(element, attrs);
-    });
-  }
-
   String getCssAttr(String name) {
     String ret = '';
 
@@ -28,6 +19,15 @@ abstract class CssCapable {
     }
 
     return ret;
+  }
+
+  void setCssAttr(String name, String value) {
+    elements.forEach((Element element) {
+      Map<String, String> attrs = _getCssAttrMap(element);
+
+      attrs[name] = value;
+      _setCssAttrMap(element, attrs);
+    });
   }
 
   Map<String, String> _getCssAttrMap(Element element) {
