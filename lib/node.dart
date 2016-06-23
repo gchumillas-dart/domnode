@@ -8,19 +8,13 @@ part 'src/attribute_capable.dart';
 part 'src/class_capable.dart';
 part 'src/content_capable.dart';
 part 'src/css_capable.dart';
-part 'src/data_capable.dart';
 part 'src/null_tree_sanitizer.dart';
 
 /**
  * This class represents one or more DOM elements.
  */
 class DomNode extends IterableBase<DomNode>
-    with
-        AttributeCapable,
-        CssCapable,
-        ClassCapable,
-        DataCapable,
-        ContentCapable {
+    with AttributeCapable, CssCapable, ClassCapable, ContentCapable {
   List<Element> _elements = [];
   NodeValidator _validator;
   NodeTreeSanitizer _sanitizer;
@@ -124,6 +118,14 @@ class DomNode extends IterableBase<DomNode>
     return _elements.length > 0
         ? new DomNode.fromElement(_elements[0].parent)
         : null;
+  }
+
+  String getData(String name) {
+    return JSON.decode(getAttr(['data', name].join('-')));
+  }
+
+  void setData(String name, Object value) {
+    setAttr(['data', name].join('-'), JSON.encode(value));
   }
 
   void remove() {

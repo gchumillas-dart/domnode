@@ -10,6 +10,7 @@ abstract class AttributeCapable {
     return elements.length > 0 ? elements[0].getAttribute(name) != null : false;
   }
 
+  // TODO: it should return a null element if the attribute does no exist
   String getAttr(String name) {
     String ret = '';
 
