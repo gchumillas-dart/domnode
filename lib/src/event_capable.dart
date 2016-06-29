@@ -3,15 +3,15 @@ part of domnode;
 abstract class EventCapable {
   List<Element> get elements;
 
-  void on(String type, EventListener listener) {
-    for (Element element in elements) {
-      element.addEventListener(type, listener);
-    }
-  }
-
   void off(String type, EventListener listener) {
     for (Element element in elements) {
       element.removeEventListener(type, listener);
+    }
+  }
+
+  void on(String type, EventListener listener) {
+    for (Element element in elements) {
+      element.addEventListener(type, listener);
     }
   }
 
