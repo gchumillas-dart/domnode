@@ -1,11 +1,6 @@
 import 'package:domnode/core.dart';
 
 void main() {
-  DomNode node =
-      new DomNode('a', attrs: {'href': '#'}, html: '<em>Some & text</em>');
-  $('body').append(node);
-  print(node.getText());
-
   // accessing a single element
   $('h1')
     ..setAttr('title', 'This is my title')
