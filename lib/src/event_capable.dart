@@ -15,9 +15,14 @@ abstract class EventCapable {
     }
   }
 
-  void trigger(String type) {
+  void trigger(Object type) {
+    if (!(type is Event) && !(type is String)) {
+      throw new ArgumentError('The \'type\' argument must be String or Event');
+    }
+
+    Event event = type is Event ? type : new Event(type.toString());
     for (Element element in elements) {
-      element.dispatchEvent(new Event(type));
+      element.dispatchEvent(event);
     }
   }
 }
