@@ -50,6 +50,22 @@ nodes.forEach((DomNode node) {
 In both cases `$()` returns a `DomNode` object. But in the first case we
 access a single node and in the second case we traverse multiple nodes.
 
+### Events
+
+```dart
+EventListener listener = (Event e) {
+  print('A ${e.type} event has been fired');
+};
+
+$('#id')
+  // attaches an event listener
+  ..on('click', listener)
+  // fires an event
+  ..trigger('click')
+  // removes an event listener
+  ..off('click', listener);
+```
+
 ### Attributes
 
 ```dart
