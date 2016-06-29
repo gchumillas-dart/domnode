@@ -1,8 +1,8 @@
 import 'dart:html';
 
-import 'node.dart';
+import 'dom_node.dart';
 
-export 'node.dart' show DomNode;
+export 'dom_node.dart' show DomNode;
 
 /**
  * Searches nodes by CSS selectors.
