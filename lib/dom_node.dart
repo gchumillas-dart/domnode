@@ -65,9 +65,11 @@ class DomNode extends IterableBase<DomNode>
       Function.apply(callback, [this]);
     }
   }
+
   DomNode.fromDocument(Document doc) {
     _elements = [doc.documentElement];
   }
+
   DomNode.fromElement(Element element) {
     _elements = [element];
   }
