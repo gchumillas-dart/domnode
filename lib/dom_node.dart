@@ -1,20 +1,4 @@
-library domnode;
-
-import 'dart:collection';
-import 'dart:convert';
-import 'dart:html';
-
-import 'package:html_unescape/html_unescape.dart';
-
-import 'src/utils.dart';
-
-part 'src/attribute_capable.dart';
-part 'src/class_capable.dart';
-part 'src/content_capable.dart';
-part 'src/css_capable.dart';
-part 'src/event_capable.dart';
-part 'src/metrics_capable.dart';
-part 'src/null_tree_sanitizer.dart';
+part of domnode;
 
 /**
  * This class represents one or more DOM elements.
@@ -79,9 +63,15 @@ class DomNode extends IterableBase<DomNode>
   }
 
   DomNode.fromString(String str, [String contentType = 'text/xml']) {
-    DomParser parser = new DomParser();
-    Document doc = parser.parseFromString(str, contentType);
+    // verifies that the XML document is well formed
+    Parser parser = new xml.XmlParserDefinition().build();
+    Result result = parser.parse(str);
+    if (result.isFailure) {
+      throw new ArgumentError(new ParserError(result).toString());
+    }
 
+    DomParser domParser = new DomParser();
+    Document doc = domParser.parseFromString(str, contentType);
     _elements = [doc.documentElement];
   }
 
