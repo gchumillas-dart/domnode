@@ -38,7 +38,7 @@ part 'src/null_tree_sanitizer.dart';
 /// DomNode target = new DomNode('span');
 /// node = $(target);
 /// assert(node == target);
-DomNode $(dynamic target) {
+DomNode $(dynamic /*css selectors | (Element | Document | DomNode) */ target) {
   DomNode ret;
 
   if (target is String) {
@@ -58,6 +58,8 @@ DomNode $(dynamic target) {
     ret = new DomNode.fromDocument(target);
   } else if (target is DomNode) {
     ret = target;
+  } else {
+    throw new ArgumentError('Invalid target');
   }
 
   return ret;
