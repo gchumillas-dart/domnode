@@ -38,8 +38,17 @@ part 'src/null_tree_sanitizer.dart';
 /// DomNode target = new DomNode('span');
 /// node = $(target);
 /// assert(node == target);
-DomNode $(dynamic /*css selectors | (Element | Document | DomNode) */ target) {
+DomNode $(dynamic /*css selectors | (Element | Document | DomNode) */ target,
+    [dynamic /* Element | Document | DomNode */ context]) {
   DomNode ret;
+
+  if (context == null) {
+    context = document;
+  }
+  if (context != null &&
+      !(context is Element || context is Document || context is DomNode)) {
+    throw new ArgumentError('Invalid context');
+  }
 
   if (target is String) {
     Parser parser = new xml.XmlParserDefinition().build();
@@ -49,8 +58,7 @@ DomNode $(dynamic /*css selectors | (Element | Document | DomNode) */ target) {
       ret = new DomNode.fromString(target);
     } else {
       // css selectors
-      DomNode node = new DomNode.fromDocument(document);
-      ret = node.query(target);
+      ret = $(context).query(target);
     }
   } else if (target is Element) {
     ret = new DomNode.fromElement(target);
