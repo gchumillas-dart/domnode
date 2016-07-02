@@ -8,7 +8,7 @@ intuitive way.
 Edit your pubspec.yaml file and add the `domnode` package:
 ```yaml
 dependencies:
-  domnode: ^1.0.0
+  domnode: any
 ```
 
 Install dependencies:
