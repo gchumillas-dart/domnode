@@ -11,6 +11,7 @@ abstract class ContentCapable {
   /**
    * Appends content.
    */
+  // TODO: obj can be either string|Element or DomNode object
   void append(Object obj) {
     elements.forEach((Element element) {
       element.insertAdjacentHtml('beforeend', obj.toString(),
