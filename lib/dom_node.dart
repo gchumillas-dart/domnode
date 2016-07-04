@@ -50,19 +50,46 @@ class DomNode extends IterableBase<DomNode>
     }
   }
 
-  DomNode.fromDocument(Document doc) {
+  DomNode.fromDocument(Document doc,
+      {NodeValidator validator, NodeTreeSanitizer sanitizer}) {
+    if (validator == null && sanitizer == null) {
+      sanitizer = new NullTreeSanitizer();
+    }
+    _validator = validator;
+    _sanitizer = sanitizer;
     _elements = [doc.documentElement];
   }
 
-  DomNode.fromElement(Element element) {
+  DomNode.fromElement(Element element,
+      {NodeValidator validator, NodeTreeSanitizer sanitizer}) {
+    if (validator == null && sanitizer == null) {
+      sanitizer = new NullTreeSanitizer();
+    }
+    _validator = validator;
+    _sanitizer = sanitizer;
     _elements = [element];
   }
 
-  DomNode.fromList(List<Element> elements) {
+  DomNode.fromList(List<Element> elements,
+      {NodeValidator validator, NodeTreeSanitizer sanitizer}) {
+    if (validator == null && sanitizer == null) {
+      sanitizer = new NullTreeSanitizer();
+    }
+    _validator = validator;
+    _sanitizer = sanitizer;
     _elements = elements;
   }
 
-  DomNode.fromString(String str, [String contentType = 'text/xml']) {
+  DomNode.fromString(String str,
+      {String type: 'text/xml',
+      NodeValidator validator,
+      NodeTreeSanitizer sanitizer}) {
+    if (validator == null && sanitizer == null) {
+      sanitizer = new NullTreeSanitizer();
+    }
+    _validator = validator;
+    _sanitizer = sanitizer;
+
     // verifies that the XML document is well formed
     Parser parser = new xml.XmlParserDefinition().build();
     Result result = parser.parse(str);
@@ -71,7 +98,7 @@ class DomNode extends IterableBase<DomNode>
     }
 
     DomParser domParser = new DomParser();
-    Document doc = domParser.parseFromString(str, contentType);
+    Document doc = domParser.parseFromString(str, type);
     _elements = [doc.documentElement];
   }
 
