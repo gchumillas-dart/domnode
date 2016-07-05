@@ -1,7 +1,6 @@
 # DomNode
 
-A client-side library to manipulate and traverse DOM objects in a easy and
-intuitive way.
+A client-side library to manipulate and traverse DOM objects in a easy and intuitive way. This library is not intended as a replacement for the DOM library but, in many cases, it can drastically simplify the code.
 
 ## How to install
 
@@ -29,86 +28,104 @@ void main() {
 
 ### Getting elements from a document
 
-`DomNode` is the main class of this library. It extends the `IterableBase`
-class, which means that you can think of it as a single node or multiple nodes.
-Use the `$` method to find elements. For example, consider the following code:
+`DomNode` is the main class of this library. It extends the `IterableBase` class, which means that you can think of it as if it were a single element or multiple elements. Use the `query` method to select zero, one or more elements. For example, consider the following code:
 
 ```dart
 // gets a single node
-DomNode node = $('h1');
+var node = query('h1');
 if (node.length == 0) {
   print('Node not found');
 }
 
 // gests multiple nodes
-Iterable<DomNode> nodes = $('p');
-nodes.forEach((DomNode node) {
+var nodes = query('p');
+nodes.forEach((node) {
   print(node);
 });
 ```
 
-In both cases `$()` returns a `DomNode` object. But in the first case we
-access a single node and in the second case we traverse multiple nodes.
-
 ### Events
 
-```dart
-EventListener listener = (Event e) {
-  print('A ${e.type} event has been fired');
-};
+Note that in the following example we are hidding the `query` function to avoid collisions.
 
-$('#id')
-  // attaches an event listener
-  ..on('click', listener)
-  // fires an event
-  ..trigger('click')
-  // removes an event listener
-  ..off('click', listener);
+```dart
+import 'dart:html' hide query;
+import 'package:domnode/core.dart';
+
+void main() {
+  var listener = (Event e) {
+    print('A ${e.type} event has been fired');
+  };
+
+  query('#id')
+    // attaches an event listener
+    ..on('click', listener)
+    // fires an event
+    ..trigger('click')
+    // removes an event listener
+    ..off('click', listener);
+}
 ```
 
 ### Attributes
 
 ```dart
+var node = query('#id');
+
 // gets an attribute
-print($('a[id="anchor1"]').getAttr('href'));
+print(node.attr['href']);
 
 // sets an attribute
-$('a[id="anchor1"]').setAttr('title', 'New title');
+node.attr['title'] = 'New title';
 
 // does the attribute exist?
-assert($('a[id="anchor1"]').hasAttr('id'));
+assert(node.attr['id'] == null);
+
+// removes an attribute
+node.attr.remove('id');
 ```
 
 ### CSS attributes
 
 ```dart
+var node = query('#id');
+
 // gets a CSS attribute
-print($('h1').getCssAttr('background-color'));
+print(query('h1').css['background-color']);
 
 // sets a CSS attribute
-$('h1').setCssAttr('background-color', 'yellow');
+node.css['background-color'] = 'yellow';
+
+// does a CSS attribute exist?
+assert(node.css['background-color'] != null);
+
+// removes a CSS attribute
+node.css.remove('background-color');
 ```
 
 ### CSS classes
 
 ```dart
+var node = query('#id');
+
 // adds a class
-$('h1').addClass('class1');
+node.addClass('class1');
 
 // removes a class
-$('h1').removeClass('class1');
-
-// adds or removes a class
-$('h1').toggleClass('class1');
+node.removeClass('class1');
 
 // does the class exist?
-assert($('h1').hasClass('class1'));
+assert(node.hasClass('class1'));
+
+// adds or removes a class
+node.toggleClass('class1');
 ```
 
 ### Inner contents
 
 ```dart
-DomNode body = $('body');
+var body = query('body');
+var node = query('#id');
 
 // appends a new element
 body.append('<p>New paragraph</p>');
@@ -117,95 +134,104 @@ body.append('<p>New paragraph</p>');
 body.prepend('<p>New paragraph at the beginning</p>');
 
 // gets the inner text of a single element
-print($('h1').getText());
+print(node.text);
 
 // changes the inner text of a single element
-$('h1').setText('New title');
+node.text = 'New title';
 
 // gets the inner html of a single element
-print($('p[id="p1"]').getHtml());
+print(node.html);
 
 // sets the inner html of a single element
-$('p[id="p1"]').setHtml('This is text is <em>italic</em>');
+node.html = 'This is text is <em>italic</em>';
 
 // removes all childnodes of an element
-$('div[id="div1"]').empty();
+node.empty();
 ```
 
 ### Metrics
 ```dart
-DomNode node = $('.myDiv');
+DomNode node = query('.myDiv');
 
 // sets node size
 node
-  ..setWidth(640)
-  ..setHeight(480);
-print('width: ' + node.getWidth() + ', height: ' + node.getHeight());
+  ..width = 640
+  ..height = 480;
+print('width: ${node.width}, height: ${node.height}');
 
-// sets 'inner' size (includes padding size)
-node
-  ..setInnerWidth(640)
-  ..setInnerHeight(480);
+// border size
+print('border width ${node.borderWidth}, ' +
+    'border height: ${node.borderHeight}');
 
-// sets 'outer' size (includes padding and border sizes)
-node
-  ..setOuterWidth(640)
-  ..setOuterHeight(480);
+// padding size
+print('padding width ${node.paddingWidth}, ' +
+    'padding height: ${node.paddingHeight}');
 
-// sets 'outer' size (includes padding, border and margin sizes)
-node
-  ..setOuterWidth(640, includeMargin: true)
-  ..setOuterHeight(480, includMargin: true);
+// margin size
+print('margin width ${node.marginWidth}, ' +
+    'margin height: ${node.marginHeight}');
 ```
 
 ### Saving arbitrary data
 
 ```dart
+var node = query('#id');
+
 // sets arbitrary data to an element
-$('h1').setData('test', {'one': 1, 'two': 2, 'three': 3});
+node.data['test'] = {'one': 1, 'two': 2, 'three': 3};
 
 // gets data from an element
-print($('h1').getData('test'));
+print(node.data['test']);
 ```
 
 ### Creating instances from a given source
+
+You can use the `$` function to create elements from different sources.
+
 ```dart
 // creates an instance from a string
-DomNode node = new DomNode.fromString(
-    '<root><item id="1" /><item id="2" /><item id="3" /></root>');
-print(node);
+var node1 =
+    $('<root><item id="1" /><item id="2" /><item id="3" /></root>');
+print(node1);
 
 // creates an instance from a document
-DomNode node = new DomNode.fromDocument(myDocument);
-print(node);
+var node2 = $(document);
+print(node2);
 
 // creates an instance from a DOM element
-DomNode node = new DomNode.fromElement(myElement);
+var element = document.querySelector('h1');
+DomNode node3 = $(element);
+print(node3);
 ```
 
 ### Creating nodes from scratch
 
+Note the intensive use of the `$` function.
+
 ```dart
 // creates a span and appends it to the body
-DomNode node = new DomNode('span',
-    attrs: {'id': 'span_id', 'title': 'Span Title'}, text: 'Some text here');
-$('body').append(node);
+query('body').append($('<span />')
+  ..attr['id'] = 'span_id'
+  ..attr['title'] = 'Span title'
+  ..text = 'Some text here');
 
 // creates a complex node
-DomNode node = new DomNode('root', callback: (DomNode target) {
+var node = $('<root />', (target) {
   // apends a new node with childNodes
-  target.append(new DomNode('user', callback: (DomNode target) {
-    target.append(new DomNode('first-name', text: 'James'));
-    target.append(new DomNode('last-name', text: 'Bond'));
-    target.append(new DomNode('age', text: 158));
-    target.append(
-      new DomNode('bio', html: 'My name is Bond, <em>James Bond</em>'));
+  target.append($('<user />', (DomNode target) {
+    target.append($('<first-name />')..text = 'James');
+    target.append($('<last-name />')..text = 'Bond');
+    target.append($('<age />')..text = 158);
+    target
+        .append($('<bio />')..html = 'My name is Bond, <em>James Bond</em>');
   }));
 
-  // appends more items
-  target.append(new DomNode('item', attrs: {'id': '101', 'title': 'Item 1'}));
-  target.append(new DomNode('item', attrs: {'id': '102', 'title': 'Item 2'}));
-  target.append(new DomNode('item', attrs: {'id': '103', 'title': 'Item 3'}));
+  // appends three subitems
+  for (num i = 0; i < 3; i++) {
+    target.append($('<item />')
+      ..attr['id'] = 'item_${i}'
+      ..attr['title'] = 'Item ${i}');
+  }
 
   // prepends raw content
   target.prepend('<summary>Look at my horse, my horse is amazing</summary>');
