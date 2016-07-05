@@ -5,6 +5,7 @@ part of domnode;
  */
 abstract class AttributeCapable {
   Map<String, Object> get attr => new _AttrManager(this);
+  Map<String, Object> get data => new _DataManager(this);
 
   List<Element> get elements;
 }
@@ -50,5 +51,37 @@ class _AttrManager extends MapBase<String, Object> {
       ret = element.attributes.remove(key.toString());
     }
     return ret;
+  }
+}
+
+class _DataManager extends _AttrManager {
+  _DataManager(DomNode target) : super(target);
+
+  Iterable<String> get keys {
+    return super
+        .keys
+        .where((String key) => key.startsWith('data-'))
+        .map((String key) => key.replaceFirst('data-', ''));
+  }
+
+  String operator [](Object key) {
+    String value = super[['data', key].join('-')];
+    return value != null ? JSON.decode(value) : null;
+  }
+
+  void operator []=(String key, Object value) {
+    super[['data', key].join('-')] = JSON.encode(value);
+  }
+
+  void clear() {
+    for (Element element in _target.elements) {
+      element.attributes.keys
+          .where((String key) => key.startsWith('data-'))
+          .forEach((String key) => element.attributes.remove(key));
+    }
+  }
+
+  String remove(Object key) {
+    return super.remove(['data', key].join('-'));
   }
 }

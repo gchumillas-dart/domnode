@@ -93,10 +93,6 @@ class DomNode extends IterableBase<DomNode>
         : null;
   }
 
-  String getData(String name) {
-    return JSON.decode(attr[['data', name].join('-')]);
-  }
-
   /**
    * Searches elements by CSS selectors.
    */
@@ -122,10 +118,6 @@ class DomNode extends IterableBase<DomNode>
 
       element.remove();
     }
-  }
-
-  void setData(String name, Object value) {
-    attr[['data', name].join('-')] = JSON.encode(value);
   }
 
   String toString() {
