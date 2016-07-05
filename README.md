@@ -46,7 +46,7 @@ nodes.forEach((node) {
 
 ### Events
 
-Note that in the following example we are hidding the `query` function to avoid collisions.
+Note that in the following example we are hidding the `query` function from the `dart:html` library to prevent collisions.
 
 ```dart
 import 'dart:html' hide query;
