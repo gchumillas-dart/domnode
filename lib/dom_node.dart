@@ -83,15 +83,12 @@ class DomNode extends IterableBase<DomNode>
     return ret.iterator;
   }
 
-  String getData(String name) {
-    return JSON.decode(attr[['data', name].join('-')]);
+  String get name {
+    return _elements.length > 0 ? _elements[0].nodeName : '';
   }
 
-  /**
-   * Gets the node name.
-   */
-  String getName() {
-    return _elements.length > 0 ? _elements[0].nodeName : '';
+  String getData(String name) {
+    return JSON.decode(attr[['data', name].join('-')]);
   }
 
   DomNode getParent() {
