@@ -28,8 +28,7 @@ abstract class ContentCapable {
   /**
    * Removes all child nodes.
    */
-  // TODO: replace 'clean' by 'empty'
-  void clean() {
+  void empty() {
     elements.forEach((Element element) {
       while (element.hasChildNodes()) {
         element.firstChild.remove();
@@ -76,7 +75,7 @@ abstract class ContentCapable {
    * Sets inner html.
    */
   void setHtml(Object value) {
-    clean();
+    empty();
     elements.forEach((Element element) {
       element.appendHtml(value.toString(),
           treeSanitizer: new NullTreeSanitizer());
@@ -88,7 +87,7 @@ abstract class ContentCapable {
    */
   void setText(Object value) {
     HtmlEscape encoder = new HtmlEscape();
-    clean();
+    empty();
     elements.forEach((Element element) {
       element.text = encoder.convert(value.toString());
     });

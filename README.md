@@ -129,7 +129,7 @@ print($('p[id="p1"]').getHtml());
 $('p[id="p1"]').setHtml('This is text is <em>italic</em>');
 
 // removes all childnodes of an element
-$('div[id="div1"]').clean();
+$('div[id="div1"]').empty();
 ```
 
 ### Metrics
