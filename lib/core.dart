@@ -46,7 +46,7 @@ DomNode $(Object source, [Callback callback]) {
 }
 
 /// Searches the [cssSelectors] nodes from a [context].
-DomNode q(String cssSelectors, [DomNode context]) {
+DomNode query(String cssSelectors, [DomNode context]) {
   if (context == null) {
     context = new DomNode.fromDocument(document);
   }

@@ -27,7 +27,7 @@ class DomNode extends IterableBase<DomNode>
 
     if (attrs != null) {
       attrs.forEach((String name, Object value) {
-        setAttr(name, value);
+        this.attr[name] = value;
       });
     }
 
@@ -84,7 +84,7 @@ class DomNode extends IterableBase<DomNode>
   }
 
   String getData(String name) {
-    return JSON.decode(getAttr(['data', name].join('-')));
+    return JSON.decode(attr[['data', name].join('-')]);
   }
 
   /**
@@ -128,7 +128,7 @@ class DomNode extends IterableBase<DomNode>
   }
 
   void setData(String name, Object value) {
-    setAttr(['data', name].join('-'), JSON.encode(value));
+    attr[['data', name].join('-')] = JSON.encode(value);
   }
 
   String toString() {

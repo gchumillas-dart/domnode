@@ -4,25 +4,51 @@ part of domnode;
  * This class allows operating with attributes.
  */
 abstract class AttributeCapable {
+  Map<String, Object> get attr => new _AttrManager(this);
+
   List<Element> get elements;
+}
 
-  String getAttr(String name) {
-    return elements.length > 0 ? elements[0].getAttribute(name) : '';
+class _AttrManager extends MapBase<String, Object> {
+  final DomNode _target;
+
+  _AttrManager(this._target);
+
+  Iterable<String> get keys {
+    Iterable<String> ret = null;
+    for (Element element in _target.elements) {
+      ret = element.attributes.keys;
+      break;
+    }
+    return ret;
   }
 
-  bool hasAttr(String name) {
-    return elements.length > 0 ? elements[0].getAttribute(name) != null : false;
+  String operator [](Object key) {
+    String ret = null;
+    for (Element element in _target.elements) {
+      ret = element.getAttribute(key.toString());
+      break;
+    }
+    return ret;
   }
 
-  void removeAttr(String name) {
-    elements.forEach((Element element) {
-      element.attributes.remove(name);
-    });
+  void operator []=(String key, Object value) {
+    for (Element element in _target.elements) {
+      element.setAttribute(key, value.toString());
+    }
   }
 
-  void setAttr(String name, Object value) {
-    elements.forEach((Element element) {
-      element.setAttribute(name, value.toString());
-    });
+  void clear() {
+    for (Element element in _target.elements) {
+      element.attributes.clear();
+    }
+  }
+
+  String remove(Object key) {
+    String ret = null;
+    for (Element element in _target.elements) {
+      ret = element.attributes.remove(key.toString());
+    }
+    return ret;
   }
 }
