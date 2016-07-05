@@ -15,6 +15,5 @@ void main() {
   });
 
   // appends content
-  $('p:last-child')
-      .append('<br><span>content added to the last paragraph.</span>');
+  $('p:last-child').append('<br><em>content added to the last paragraph.</em>');
 }
