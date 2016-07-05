@@ -190,43 +190,48 @@ You can use the `$` function to create elements from different sources.
 
 ```dart
 // creates an instance from a string
-DomNode node1 =
+var node1 =
     $('<root><item id="1" /><item id="2" /><item id="3" /></root>');
 print(node1);
 
 // creates an instance from a document
-DomNode node2 = $(document);
+var node2 = $(document);
 print(node2);
 
 // creates an instance from a DOM element
-Element element = document.querySelector('h1');
+var element = document.querySelector('h1');
 DomNode node3 = $(element);
 print(node3);
 ```
 
 ### Creating nodes from scratch
 
+Note the intensive use of the `$` function.
+
 ```dart
 // creates a span and appends it to the body
-DomNode node = new DomNode('span',
-    attrs: {'id': 'span_id', 'title': 'Span Title'}, text: 'Some text here');
-$('body').append(node);
+query('body').append($('<span />')
+  ..attr['id'] = 'span_id'
+  ..attr['title'] = 'Span title'
+  ..text = 'Some text here');
 
 // creates a complex node
-DomNode node = new DomNode('root', callback: (DomNode target) {
+DomNode node = $('<root />', (DomNode target) {
   // apends a new node with childNodes
-  target.append(new DomNode('user', callback: (DomNode target) {
-    target.append(new DomNode('first-name', text: 'James'));
-    target.append(new DomNode('last-name', text: 'Bond'));
-    target.append(new DomNode('age', text: 158));
-    target.append(
-      new DomNode('bio', html: 'My name is Bond, <em>James Bond</em>'));
+  target.append($('<user />', (DomNode target) {
+    target.append($('<first-name />')..text = 'James');
+    target.append($('<last-name />')..text = 'Bond');
+    target.append($('<age />')..text = 158);
+    target
+        .append($('<bio />')..html = 'My name is Bond, <em>James Bond</em>');
   }));
 
-  // appends more items
-  target.append(new DomNode('item', attrs: {'id': '101', 'title': 'Item 1'}));
-  target.append(new DomNode('item', attrs: {'id': '102', 'title': 'Item 2'}));
-  target.append(new DomNode('item', attrs: {'id': '103', 'title': 'Item 3'}));
+  // appends three subitems
+  for (num i = 0; i < 3; i++) {
+    target.append($('<item />')
+      ..attr['id'] = 'item_${i}'
+      ..attr['title'] = 'Item ${i}');
+  }
 
   // prepends raw content
   target.prepend('<summary>Look at my horse, my horse is amazing</summary>');
