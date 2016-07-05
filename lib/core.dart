@@ -19,6 +19,14 @@ part 'src/event_capable.dart';
 part 'src/metrics_capable.dart';
 part 'src/null_tree_sanitizer.dart';
 
+DomNode a(String str, [void callback(DomNode target)]) {
+  DomNode node = new DomNode.fromString(str);
+  if (callback != null) {
+    Function.apply(callback, [node]);
+  }
+  return node;
+}
+
 /// This function has several uses:
 ///
 /// * Searches for elements:

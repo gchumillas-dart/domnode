@@ -4,7 +4,7 @@ class NullTreeSanitizer implements NodeTreeSanitizer {
   static NullTreeSanitizer _instance;
 
   factory NullTreeSanitizer() {
-    if (_instance != null) {
+    if (_instance == null) {
       _instance = new NullTreeSanitizer._internal();
     }
 
