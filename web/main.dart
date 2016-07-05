@@ -4,9 +4,9 @@ void main() {
   // accessing a single element
   q('h1')
     ..setAttr('title', 'This is my title')
-    ..setText('Changing title')
+    ..text = 'Changing title'
     ..setCssAttr('border', '1px solid black');
-  q('h1').setText('title');
+  q('h1').text = 'title';
 
   // accessing multiple elements
   Iterable<DomNode> paragraphs = q('p');
