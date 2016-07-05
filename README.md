@@ -186,7 +186,7 @@ print(node.data['test']);
 
 ### Creating instances from a given source
 
-You can use the `$` function to create elements from different sources.
+You can use the `$` function to create instances from different sources.
 
 ```dart
 // creates an instance from a string
