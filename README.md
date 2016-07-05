@@ -227,7 +227,7 @@ var node = $('<root />', (target) {
   }));
 
   // appends three subitems
-  for (num i = 0; i < 3; i++) {
+  for (var i = 0; i < 3; i++) {
     target.append($('<item />')
       ..attr['id'] = 'item_${i}'
       ..attr['title'] = 'Item ${i}');
