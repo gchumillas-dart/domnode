@@ -1,4 +1,7 @@
 part of domnode;
+// TODO: remove validator y sanitizer from constructors
+// TODO: simplify the '$' function
+// TODO: add a 'query' function
 
 /**
  * This class represents one or more DOM elements.
@@ -80,6 +83,7 @@ class DomNode extends IterableBase<DomNode>
     _elements = elements;
   }
 
+  // TODO: we do not need 'type' (or replace it by isXml)
   DomNode.fromString(String str,
       {String type: 'text/xml',
       NodeValidator validator,
@@ -97,9 +101,9 @@ class DomNode extends IterableBase<DomNode>
       throw new ArgumentError(new ParserError(result).toString());
     }
 
-    DomParser domParser = new DomParser();
-    Document doc = domParser.parseFromString(str, type);
-    _elements = [doc.documentElement];
+    DocumentFragment fragment = document.createDocumentFragment();
+    fragment.appendHtml(str, validator: _validator, treeSanitizer: sanitizer);
+    _elements = new List<Element>.from(fragment.children);
   }
 
   List<Element> get elements => this._elements;
