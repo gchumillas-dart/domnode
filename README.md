@@ -124,7 +124,8 @@ node.toggleClass('class1');
 ### Inner contents
 
 ```dart
-DomNode body = $('body');
+var body = query('body');
+var node = query('#id');
 
 // appends a new element
 body.append('<p>New paragraph</p>');
@@ -133,70 +134,74 @@ body.append('<p>New paragraph</p>');
 body.prepend('<p>New paragraph at the beginning</p>');
 
 // gets the inner text of a single element
-print($('h1').getText());
+print(node.text);
 
 // changes the inner text of a single element
-$('h1').setText('New title');
+node.text = 'New title';
 
 // gets the inner html of a single element
-print($('p[id="p1"]').getHtml());
+print(node.html);
 
 // sets the inner html of a single element
-$('p[id="p1"]').setHtml('This is text is <em>italic</em>');
+node.html = 'This is text is <em>italic</em>';
 
 // removes all childnodes of an element
-$('div[id="div1"]').empty();
+node.empty();
 ```
 
 ### Metrics
 ```dart
-DomNode node = $('.myDiv');
+DomNode node = query('.myDiv');
 
 // sets node size
 node
-  ..setWidth(640)
-  ..setHeight(480);
-print('width: ' + node.getWidth() + ', height: ' + node.getHeight());
+  ..width = 640
+  ..height = 480;
+print('width: ${node.width}, height: ${node.height}');
 
-// sets 'inner' size (includes padding size)
-node
-  ..setInnerWidth(640)
-  ..setInnerHeight(480);
+// border size
+print('border width ${node.borderWidth}, ' +
+    'border height: ${node.borderHeight}');
 
-// sets 'outer' size (includes padding and border sizes)
-node
-  ..setOuterWidth(640)
-  ..setOuterHeight(480);
+// padding size
+print('padding width ${node.paddingWidth}, ' +
+    'padding height: ${node.paddingHeight}');
 
-// sets 'outer' size (includes padding, border and margin sizes)
-node
-  ..setOuterWidth(640, includeMargin: true)
-  ..setOuterHeight(480, includMargin: true);
+// margin size
+print('margin width ${node.marginWidth}, ' +
+    'margin height: ${node.marginHeight}');
 ```
 
 ### Saving arbitrary data
 
 ```dart
+var node = query('#id');
+
 // sets arbitrary data to an element
-$('h1').setData('test', {'one': 1, 'two': 2, 'three': 3});
+node.data['test'] = {'one': 1, 'two': 2, 'three': 3};
 
 // gets data from an element
-print($('h1').getData('test'));
+print(node.data['test']);
 ```
 
 ### Creating instances from a given source
+
+You can use the `$` function to create elements from different sources.
+
 ```dart
 // creates an instance from a string
-DomNode node = new DomNode.fromString(
-    '<root><item id="1" /><item id="2" /><item id="3" /></root>');
-print(node);
+DomNode node1 =
+    $('<root><item id="1" /><item id="2" /><item id="3" /></root>');
+print(node1);
 
 // creates an instance from a document
-DomNode node = new DomNode.fromDocument(myDocument);
-print(node);
+DomNode node2 = $(document);
+print(node2);
 
 // creates an instance from a DOM element
-DomNode node = new DomNode.fromElement(myElement);
+Element element = document.querySelector('h1');
+DomNode node3 = $(element);
+print(node3);
 ```
 
 ### Creating nodes from scratch
