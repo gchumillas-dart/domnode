@@ -47,17 +47,23 @@ nodes.forEach((DomNode node) {
 ### Events
 
 ```dart
-EventListener listener = (Event e) {
-  print('A ${e.type} event has been fired');
-};
+// Note that we are hidding the query() function to avoid collitions
+import 'dart:html' hide query;
+import 'package:domnode/core.dart';
 
-$('#id')
-  // attaches an event listener
-  ..on('click', listener)
-  // fires an event
-  ..trigger('click')
-  // removes an event listener
-  ..off('click', listener);
+void main() {
+  EventListener listener = (Event e) {
+    print('A ${e.type} event has been fired');
+  };
+
+  query('#id')
+    // attaches an event listener
+    ..on('click', listener)
+    // fires an event
+    ..trigger('click')
+    // removes an event listener
+    ..off('click', listener);
+}
 ```
 
 ### Attributes
