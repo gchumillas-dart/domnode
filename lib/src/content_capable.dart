@@ -5,8 +5,6 @@ part of domnode;
  */
 abstract class ContentCapable {
   List<Element> get elements;
-  NodeTreeSanitizer get sanitizer;
-  NodeValidator get validator;
 
   /**
    * Appends content.
@@ -22,7 +20,7 @@ abstract class ContentCapable {
     } else {
       elements.forEach((Element element) {
         element.insertAdjacentHtml('beforeend', obj.toString(),
-            validator: validator, treeSanitizer: sanitizer);
+            treeSanitizer: new NullTreeSanitizer());
       });
     }
   }
@@ -70,7 +68,7 @@ abstract class ContentCapable {
   void prepend(Object obj) {
     elements.forEach((Element element) {
       element.insertAdjacentHtml('afterbegin', obj.toString(),
-          validator: validator, treeSanitizer: sanitizer);
+          treeSanitizer: new NullTreeSanitizer());
     });
   }
 
@@ -81,7 +79,7 @@ abstract class ContentCapable {
     clean();
     elements.forEach((Element element) {
       element.appendHtml(value.toString(),
-          validator: validator, treeSanitizer: sanitizer);
+          treeSanitizer: new NullTreeSanitizer());
     });
   }
 

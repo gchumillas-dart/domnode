@@ -1,5 +1,4 @@
 part of domnode;
-// TODO: remove validator y sanitizer from constructors
 // TODO: simplify the '$' function
 // TODO: add a 'query' function
 
@@ -15,22 +14,11 @@ class DomNode extends IterableBase<DomNode>
         EventCapable,
         MetricsCapable {
   List<Element> _elements = [];
-  NodeValidator _validator;
-  NodeTreeSanitizer _sanitizer;
   DomNode(String nodeName,
       {Map<String, Object> attrs,
       Object text,
       Object html,
-      void callback(DomNode target),
-      NodeValidator validator,
-      NodeTreeSanitizer sanitizer}) {
-    if (validator == null && sanitizer == null) {
-      sanitizer = new NullTreeSanitizer();
-    }
-
-    _validator = validator;
-    _sanitizer = sanitizer;
-
+      void callback(DomNode target)}) {
     Element elem = document.createElement(nodeName);
     _elements.add(elem);
 
@@ -53,47 +41,20 @@ class DomNode extends IterableBase<DomNode>
     }
   }
 
-  DomNode.fromDocument(Document doc,
-      {NodeValidator validator, NodeTreeSanitizer sanitizer}) {
-    if (validator == null && sanitizer == null) {
-      sanitizer = new NullTreeSanitizer();
-    }
-    _validator = validator;
-    _sanitizer = sanitizer;
+  DomNode.fromDocument(Document doc) {
     _elements = [doc.documentElement];
   }
 
-  DomNode.fromElement(Element element,
-      {NodeValidator validator, NodeTreeSanitizer sanitizer}) {
-    if (validator == null && sanitizer == null) {
-      sanitizer = new NullTreeSanitizer();
-    }
-    _validator = validator;
-    _sanitizer = sanitizer;
+  DomNode.fromElement(Element element) {
     _elements = [element];
   }
 
-  DomNode.fromList(List<Element> elements,
-      {NodeValidator validator, NodeTreeSanitizer sanitizer}) {
-    if (validator == null && sanitizer == null) {
-      sanitizer = new NullTreeSanitizer();
-    }
-    _validator = validator;
-    _sanitizer = sanitizer;
+  DomNode.fromList(List<Element> elements) {
     _elements = elements;
   }
 
   // TODO: we do not need 'type' (or replace it by isXml)
-  DomNode.fromString(String str,
-      {String type: 'text/xml',
-      NodeValidator validator,
-      NodeTreeSanitizer sanitizer}) {
-    if (validator == null && sanitizer == null) {
-      sanitizer = new NullTreeSanitizer();
-    }
-    _validator = validator;
-    _sanitizer = sanitizer;
-
+  DomNode.fromString(String str, {String type: 'text/xml'}) {
     // verifies that the XML document is well formed
     Parser parser = new xml.XmlParserDefinition().build();
     Result result = parser.parse(str);
@@ -102,7 +63,7 @@ class DomNode extends IterableBase<DomNode>
     }
 
     DocumentFragment fragment = document.createDocumentFragment();
-    fragment.appendHtml(str, validator: _validator, treeSanitizer: sanitizer);
+    fragment.appendHtml(str, treeSanitizer: new NullTreeSanitizer());
     _elements = new List<Element>.from(fragment.children);
   }
 
@@ -118,10 +79,6 @@ class DomNode extends IterableBase<DomNode>
 
     return ret.iterator;
   }
-
-  NodeTreeSanitizer get sanitizer => _sanitizer;
-
-  NodeValidator get validator => _validator;
 
   String getData(String name) {
     return JSON.decode(getAttr(['data', name].join('-')));
