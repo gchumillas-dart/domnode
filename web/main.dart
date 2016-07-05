@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'package:domnode/core.dart';
 
 void main() {
@@ -12,7 +11,7 @@ void main() {
   // accessing multiple elements
   Iterable<DomNode> paragraphs = q('p');
   paragraphs.forEach((DomNode item) {
-    item.setHtml('<strong>Paragraph</strong>');
+    item.html = '<strong>Paragraph</strong>';
   });
 
   // appends content
