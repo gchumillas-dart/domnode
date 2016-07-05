@@ -1,7 +1,6 @@
 # DomNode
 
-A client-side library to manipulate and traverse DOM objects in a easy and
-intuitive way.
+A client-side library to manipulate and traverse DOM objects in a easy and intuitive way. This library is not intended as a replacement for the DOM library, but in many cases, it can simplifies the code efficiently.
 
 ## How to install
 
@@ -29,26 +28,21 @@ void main() {
 
 ### Getting elements from a document
 
-`DomNode` is the main class of this library. It extends the `IterableBase`
-class, which means that you can think of it as a single node or multiple nodes.
-Use the `$` method to find elements. For example, consider the following code:
+`DomNode` is the main class of this library. It extends the `IterableBase` class, which means that you can think of it as if it were a single element or multiple elements. Use the `query` method to select zero, one or more elements. For example, consider the following code:
 
 ```dart
 // gets a single node
-DomNode node = $('h1');
+var node = query('h1');
 if (node.length == 0) {
   print('Node not found');
 }
 
 // gests multiple nodes
-Iterable<DomNode> nodes = $('p');
+var nodes = query('p');
 nodes.forEach((DomNode node) {
   print(node);
 });
 ```
-
-In both cases `$()` returns a `DomNode` object. But in the first case we
-access a single node and in the second case we traverse multiple nodes.
 
 ### Events
 
