@@ -12,16 +12,25 @@ abstract class ContentCapable {
    * Appends content.
    */
   // TODO: obj can be either string|Element or DomNode object
-  void append(Object obj) {
-    elements.forEach((Element element) {
-      element.insertAdjacentHtml('beforeend', obj.toString(),
-          validator: validator, treeSanitizer: sanitizer);
-    });
+  void append(Object /* DomNode|Object */ obj) {
+    if (obj is DomNode) {
+      elements.forEach((Element element) {
+        obj.elements.forEach((Element node) {
+          element.append(node);
+        });
+      });
+    } else {
+      elements.forEach((Element element) {
+        element.insertAdjacentHtml('beforeend', obj.toString(),
+            validator: validator, treeSanitizer: sanitizer);
+      });
+    }
   }
 
   /**
    * Removes all child nodes.
    */
+  // TODO: replace 'clean' by 'empty'
   void clean() {
     elements.forEach((Element element) {
       while (element.hasChildNodes()) {
