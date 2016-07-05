@@ -216,7 +216,7 @@ query('body').append($('<span />')
   ..text = 'Some text here');
 
 // creates a complex node
-DomNode node = $('<root />', (DomNode target) {
+var node = $('<root />', (target) {
   // apends a new node with childNodes
   target.append($('<user />', (DomNode target) {
     target.append($('<first-name />')..text = 'James');
