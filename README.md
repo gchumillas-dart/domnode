@@ -39,15 +39,16 @@ if (node.length == 0) {
 
 // gests multiple nodes
 var nodes = query('p');
-nodes.forEach((DomNode node) {
+nodes.forEach((node) {
   print(node);
 });
 ```
 
 ### Events
 
+Note that in the following example we are hidding the `query` function to avoid collisions.
+
 ```dart
-// Note that we are hidding the query() function to avoid collitions
 import 'dart:html' hide query;
 import 'package:domnode/core.dart';
 
@@ -69,40 +70,55 @@ void main() {
 ### Attributes
 
 ```dart
+var node = query('#id');
+
 // gets an attribute
-print($('a[id="anchor1"]').getAttr('href'));
+print(node.attr['href']);
 
 // sets an attribute
-$('a[id="anchor1"]').setAttr('title', 'New title');
+node.attr['title'] = 'New title';
 
 // does the attribute exist?
-assert($('a[id="anchor1"]').hasAttr('id'));
+assert(node.attr['id'] == null);
+
+// removes an attribute
+node.attr.remove('id');
 ```
 
 ### CSS attributes
 
 ```dart
+var node = query('#id');
+
 // gets a CSS attribute
-print($('h1').getCssAttr('background-color'));
+print(query('h1').css['background-color']);
 
 // sets a CSS attribute
-$('h1').setCssAttr('background-color', 'yellow');
+node.css['background-color'] = 'yellow';
+
+// does a CSS attribute exist?
+assert(node.css['background-color'] != null);
+
+// removes a CSS attribute
+node.css.remove('background-color');
 ```
 
 ### CSS classes
 
 ```dart
+var node = query('#id');
+
 // adds a class
-$('h1').addClass('class1');
+node.addClass('class1');
 
 // removes a class
-$('h1').removeClass('class1');
-
-// adds or removes a class
-$('h1').toggleClass('class1');
+node.removeClass('class1');
 
 // does the class exist?
-assert($('h1').hasClass('class1'));
+assert(node.hasClass('class1'));
+
+// adds or removes a class
+node.toggleClass('class1');
 ```
 
 ### Inner contents
