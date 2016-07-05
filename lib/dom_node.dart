@@ -1,6 +1,9 @@
 part of domnode;
 // TODO: simplify the '$' function
 // TODO: add a 'query' function
+// TODO: setters and getters
+
+typedef void Callback(DomNode target);
 
 /**
  * This class represents one or more DOM elements.
@@ -18,7 +21,7 @@ class DomNode extends IterableBase<DomNode>
       {Map<String, Object> attrs,
       Object text,
       Object html,
-      void callback(DomNode target)}) {
+      Callback callback}) {
     Element elem = document.createElement(nodeName);
     _elements.add(elem);
 
