@@ -19,64 +19,36 @@ part 'src/event_capable.dart';
 part 'src/metrics_capable.dart';
 part 'src/null_tree_sanitizer.dart';
 
-DomNode a(String str, [void callback(DomNode target)]) {
-  DomNode node = new DomNode.fromString(str);
+/// Creates a DomNode from a given [source] and, eventually, calls
+/// the [callback] function.
+DomNode $(Object source, [Callback callback]) {
+  DomNode node;
+
+  // creates a node from a given source
+  if (source is String) {
+    node = new DomNode.fromString(source);
+  } else if (source is Element) {
+    node = new DomNode.fromElement(source);
+  } else if (source is Document) {
+    node = new DomNode.fromDocument(source);
+  } else if (source is DomNode) {
+    node = source;
+  } else {
+    throw new ArgumentError(
+        'Invalid argument: String|Element|Document|DomNode');
+  }
+
   if (callback != null) {
     Function.apply(callback, [node]);
   }
+
   return node;
 }
 
-/// This function has several uses:
-///
-/// * Searches for elements:
-/// DomNode node = $('css selectors')
-///
-/// * Creates a node from a valid XML document
-/// DomNode node = $('<span title="My SPAN">Some text...</span>');
-///
-/// * Creates a node from an element:
-/// Element elem = document.querySelector('p');
-/// DomNode node = $(elem);
-///
-/// * Creates a node from a document:
-/// DomNode node = $(document);
-///
-/// * Redundant but programmatically useful:
-/// DomNode target = new DomNode('span');
-/// node = $(target);
-/// assert(node == target);
-DomNode $(dynamic /*css selectors | (Element | Document | DomNode) */ target,
-    [dynamic /* Element | Document | DomNode */ context]) {
-  DomNode ret;
-
+/// Searches the [cssSelectors] nodes from a [context].
+DomNode q(String cssSelectors, [DomNode context]) {
   if (context == null) {
-    context = document;
+    context = new DomNode.fromDocument(document);
   }
-  if (context != null &&
-      !(context is Element || context is Document || context is DomNode)) {
-    throw new ArgumentError('Invalid context');
-  }
-
-  if (target is String) {
-    Parser parser = new xml.XmlParserDefinition().build();
-    Result result = parser.parse(target);
-    if (result.isSuccess) {
-      // xml document
-      ret = new DomNode.fromString(target);
-    } else {
-      // css selectors
-      ret = $(context).query(target);
-    }
-  } else if (target is Element) {
-    ret = new DomNode.fromElement(target);
-  } else if (target is Document) {
-    ret = new DomNode.fromDocument(target);
-  } else if (target is DomNode) {
-    ret = target;
-  } else {
-    throw new ArgumentError('Invalid target');
-  }
-
-  return ret;
+  return context.query(cssSelectors);
 }
