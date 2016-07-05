@@ -4,32 +4,61 @@ part of domnode;
  * This class allows operating with CSS attributes.
  */
 abstract class CssCapable {
+  Map<String, Object> get css => new _CssAttrManager(this);
+
   List<Element> get elements;
+}
 
-  String getCssAttr(String name) {
-    String ret = '';
+class _CssAttrManager extends MapBase<String, Object> {
+  final DomNode _target;
 
-    if (elements.length > 0) {
-      Map<String, String> attrs = _getCssAttrMap(elements[0]);
+  _CssAttrManager(this._target);
 
-      name = name.toLowerCase();
-      if (attrs.containsKey(name)) {
-        ret = attrs[name];
-      }
+  Iterable<String> get keys {
+    Iterable<String> ret;
+    for (Element element in _target.elements) {
+      Map<String, String> attrs = _getCssAttrMap(element);
+      ret = attrs.keys;
+      break;
     }
-
     return ret;
   }
 
-  void setCssAttr(String name, String value) {
-    elements.forEach((Element element) {
+  String operator [](Object key) {
+    String ret;
+    for (Element element in _target.elements) {
       Map<String, String> attrs = _getCssAttrMap(element);
-
-      attrs[name] = value;
-      _setCssAttrMap(element, attrs);
-    });
+      ret = attrs[key.toString()];
+      break;
+    }
+    return ret;
   }
 
+  void operator []=(String key, Object value) {
+    for (Element element in _target.elements) {
+      Map<String, String> attrs = _getCssAttrMap(element);
+      attrs[key] = value.toString();
+      _setCssAttrMap(element, attrs);
+    }
+  }
+
+  void clear() {
+    for (Element element in _target.elements) {
+      _setCssAttrMap(element, {});
+    }
+  }
+
+  String remove(Object key) {
+    String ret = null;
+    for (Element element in _target.elements) {
+      Map<String, String> attrs = _getCssAttrMap(element);
+      ret = attrs.remove(key.toString());
+      _setCssAttrMap(element, attrs);
+    }
+    return ret;
+  }
+
+  // TODO: si el atributo no existe, debería devolver null
   Map<String, String> _getCssAttrMap(Element element) {
     Map<String, String> ret = new Map<String, String>();
     String css = element.getAttribute('style');
@@ -50,7 +79,7 @@ abstract class CssCapable {
   }
 
   void _setCssAttrMap(Element element, Map<String, String> attrs) {
-    List<String> arr = new List<String>();
+    List<String> arr = [];
 
     attrs.keys.forEach((String key) {
       if (key != null && key.length > 0) {
