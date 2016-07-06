@@ -1,7 +1,4 @@
 part of domnode;
-// TODO: simplify the '$' function
-// TODO: add a 'query' function
-// TODO: setters and getters
 
 typedef void Callback(DomNode target);
 
