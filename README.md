@@ -24,6 +24,39 @@ void main() {
 }
 ```
 
+## Introduction
+
+Use `query(String cssSelectors, [DomNode context])` to find elements and `$(Object source, [Callback callback])` to create elements. For example:
+
+```dart
+import 'package:domdnode/core.dart';
+
+void main() {
+  // searches a node from the current document
+  var node = query('#node_id');
+  print(node);
+
+  // searches a children node
+  var subnode = query('#subnode_id', node);
+  print(subnode);
+
+  // creates an anchor node and appens it to the document's body
+  var anchorNode = $('<a href="#" />')
+    ..text = 'Click me'
+    ..attr['href'] = 'path-to-page';
+  query('body').append(anchorNode);
+
+  // creates an anchor and changes some attributes
+  $('<a />')
+    ..addClass('class1')
+    ..attr['href'] = 'path-to-page'
+    ..attr['_target'] = 'blank'
+    ..css['text-decoration'] = 'none'
+    ..css['color'] = 'blue'
+    ..text = 'Some text...';
+}
+```
+
 ## Examples
 
 ### Getting elements from a document
