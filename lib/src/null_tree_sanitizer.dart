@@ -1,6 +1,5 @@
 part of domnode;
 
-// TODO: this class should be private
 class NullTreeSanitizer implements NodeTreeSanitizer {
   static NullTreeSanitizer _instance;
 
