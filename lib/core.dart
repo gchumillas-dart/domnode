@@ -5,8 +5,6 @@ import 'dart:convert';
 import 'dart:html';
 
 import 'package:html_unescape/html_unescape.dart';
-import 'package:petitparser/petitparser.dart';
-import 'package:xml/xml.dart' as xml;
 
 import 'src/utils.dart';
 

@@ -58,13 +58,6 @@ class DomNode extends IterableBase<DomNode>
 
   // TODO: we do not need 'type' (or replace it by isXml)
   DomNode.fromString(String str, {String type: 'text/xml'}) {
-    // verifies that the XML document is well formed
-    Parser parser = new xml.XmlParserDefinition().build();
-    Result result = parser.parse(str);
-    if (result.isFailure) {
-      throw new ArgumentError(new ParserError(result).toString());
-    }
-
     DocumentFragment fragment = document.createDocumentFragment();
     fragment.appendHtml(str, treeSanitizer: new NullTreeSanitizer());
     _elements = new List<Element>.from(fragment.children);
