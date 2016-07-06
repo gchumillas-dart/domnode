@@ -58,7 +58,6 @@ class _CssAttrManager extends MapBase<String, Object> {
     return ret;
   }
 
-  // TODO: si el atributo no existe, debería devolver null
   Map<String, String> _getCssAttrMap(Element element) {
     Map<String, String> ret = new Map<String, String>();
     String css = element.getAttribute('style');
