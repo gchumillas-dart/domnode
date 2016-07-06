@@ -52,10 +52,8 @@ void main() {
   // creates an anchor and changes some attributes
   $('<a />')
     ..addClass('class1')
-    ..attr['href'] = 'path-to-page'
-    ..attr['_target'] = 'blank'
-    ..css['text-decoration'] = 'none'
-    ..css['color'] = 'blue'
+    ..attr = {'href': 'path-to-page', '_target': 'blank'}
+    ..css = {'text-decoration': 'none', 'color': 'blue'}
     ..text = 'Some text...';
     
   // wraps the document around a DomNode object
