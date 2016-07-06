@@ -56,11 +56,11 @@ abstract class ContentCapable {
   /**
    * Appends content.
    */
-  // TODO: obj can be either string|Element or DomNode object
-  void append(Object /* DomNode|Object */ obj) {
-    if (obj is DomNode) {
+  void append(Object /* Element|DomNode|Object */ obj) {
+    if (obj is Element || obj is DomNode) {
+      DomNode node = $(obj);
       elements.forEach((Element element) {
-        obj.elements.forEach((Element node) {
+        node.elements.forEach((Element node) {
           element.append(node);
         });
       });
@@ -86,12 +86,11 @@ abstract class ContentCapable {
   /**
    * Prepends content.
    */
-  // TODO: obj can be a document or element
-  // TODO: throw an ArgumentError when invalid obj
-  void prepend(Object /* String|DomNode */ obj) {
-    if (obj is DomNode) {
+  void prepend(Object /* Element|DomNode|Object */ obj) {
+    if (obj is Element || obj is DomNode) {
+      DomNode node = $(obj);
       elements.forEach((Element element) {
-        obj.elements.forEach((Element node) {
+        node.elements.forEach((Element node) {
           if (element.childNodes.length > 0) {
             Element firstChild = element.childNodes[0];
             element.insertBefore(node, firstChild);
