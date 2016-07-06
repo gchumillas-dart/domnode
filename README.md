@@ -85,7 +85,7 @@ import 'dart:html' hide query;
 import 'package:domnode/core.dart';
 
 void main() {
-  var listener = (Event e) {
+  var listener = (e) {
     print('A ${e.type} event has been fired');
   };
 
