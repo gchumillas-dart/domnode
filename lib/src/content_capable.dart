@@ -86,10 +86,25 @@ abstract class ContentCapable {
   /**
    * Prepends content.
    */
-  void prepend(Object obj) {
-    elements.forEach((Element element) {
-      element.insertAdjacentHtml('afterbegin', obj.toString(),
-          treeSanitizer: new NullTreeSanitizer());
-    });
+  // TODO: obj can be a document or element
+  // TODO: throw an ArgumentError when invalid obj
+  void prepend(Object /* String|DomNode */ obj) {
+    if (obj is DomNode) {
+      elements.forEach((Element element) {
+        obj.elements.forEach((Element node) {
+          if (element.childNodes.length > 0) {
+            Element firstChild = element.childNodes[0];
+            element.insertBefore(node, firstChild);
+          } else {
+            element.append(node);
+          }
+        });
+      });
+    } else {
+      elements.forEach((Element element) {
+        element.insertAdjacentHtml('afterbegin', obj.toString(),
+            treeSanitizer: new NullTreeSanitizer());
+      });
+    }
   }
 }
