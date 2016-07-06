@@ -4,6 +4,7 @@ part of domnode;
  * This class allows operating with attributes.
  */
 abstract class AttributeCapable {
+  // TODO: should have a setter (boths)
   Map<String, Object> get attr => new _AttrManager(this);
   Map<String, Object> get data => new _DataManager(this);
 
