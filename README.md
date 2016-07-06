@@ -31,7 +31,8 @@ Use `query(String cssSelectors, [DomNode context])` to find elements and `$(Obje
 For example:
 
 ```dart
-import 'dart:html' hide query; // hides the native 'query' function to prevent collisions
+// hides the native 'query' function to prevent collisions
+import 'dart:html' hide query;
 import 'package:domnode/core.dart';
 
 void main() {
