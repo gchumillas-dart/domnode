@@ -4,8 +4,15 @@ part of domnode;
  * This class allows operating with attributes.
  */
 abstract class AttributeCapable {
-  // TODO: should have a setter (boths)
   Map<String, Object> get attr => new _AttrManager(this);
+
+  set attr(Map<String, Object> value) {
+    attr.clear();
+    value.forEach((String key, Object value) {
+      attr[key] = value;
+    });
+  }
+
   Map<String, Object> get data => new _DataManager(this);
 
   List<Element> get elements;
