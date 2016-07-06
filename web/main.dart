@@ -1,6 +1,5 @@
 import 'package:domnode/core.dart';
 
-// TODO: test properties with multiple nodes
 void main() {
   // accessing a single element
   query('h1')
