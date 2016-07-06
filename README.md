@@ -41,10 +41,9 @@ void main() {
   print(subnode);
 
   // creates an anchor node and appens it to the document's body
-  var anchorNode = $('<a href="#" />')
-    ..text = 'Click me'
-    ..attr['href'] = 'path-to-page';
-  query('body').append(anchorNode);
+  query('body').append($('<a href="#" />')
+    ..attr['href'] = 'path-to-page'
+    ..html = 'Click me <em>Please</em>');
 
   // creates an anchor and changes some attributes
   $('<a />')
