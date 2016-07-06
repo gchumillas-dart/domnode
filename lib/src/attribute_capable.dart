@@ -15,6 +15,13 @@ abstract class AttributeCapable {
 
   Map<String, Object> get data => new _DataManager(this);
 
+  set data(Map<String, Object> value) {
+    data.clear();
+    value.forEach((String key, Object value) {
+      data[key] = value;
+    });
+  }
+
   List<Element> get elements;
 }
 
