@@ -6,6 +6,13 @@ part of domnode;
 abstract class CssCapable {
   Map<String, Object> get css => new _CssAttrManager(this);
 
+  set css(Map<String, Object> value) {
+    css.clear();
+    value.forEach((String key, Object value) {
+      css[key] = value;
+    });
+  }
+
   List<Element> get elements;
 }
 
