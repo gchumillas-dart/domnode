@@ -1,6 +1,6 @@
 # DomNode
 
-A client-side library to manipulate and traverse DOM objects in a easy and intuitive way. This library is not intended as a replacement for the DOM library but, in many cases, it can drastically simplify the code.
+A client-side library to manipulate and traverse DOM objects in a easy and intuitive way. This library does not pretend to be a replacement for the DOM library but, in many cases, it can drastically simplify the code.
 
 ## How to install
 
