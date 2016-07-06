@@ -54,6 +54,15 @@ class DomNode extends IterableBase<DomNode>
   }
 
   DomNode.fromString(String str) {
+    // removes the self-closing tags
+    str = str.replaceAllMapped(
+        new RegExp(r'<\s*(\w+)([^>]*)/>', multiLine: true), (Match m) {
+      List<String> s = [m[1], m[2]]
+          .map((String item) => item?.trim())
+          .where((String item) => item != null && item.length > 0);
+      return '<${s.join(' ')}></${m[1]}>';
+    });
+
     DocumentFragment fragment = document.createDocumentFragment();
     fragment.appendHtml(str, treeSanitizer: new NullTreeSanitizer());
     _elements = new List<Element>.from(fragment.children);
