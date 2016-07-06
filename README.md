@@ -26,10 +26,13 @@ void main() {
 
 ## Introduction
 
-Use `query(String cssSelectors, [DomNode context])` to find elements and `$(Object source, [Callback callback])` to create elements. For example:
+Use `query(String cssSelectors, [DomNode context])` to find elements and `$(Object source, [Callback callback])` to create elements. Note that both `dart:html` and `package:domnode` share the same `query` function, so it's necessary to hide it from the `dart:html` library. For example:
+
+For example:
 
 ```dart
-import 'package:domdnode/core.dart';
+import 'dart:html' hide query; // hides the native 'query' function to prevent collisions
+import 'package:domnode/core.dart';
 
 void main() {
   // searches a node from the current document
@@ -53,6 +56,18 @@ void main() {
     ..css['text-decoration'] = 'none'
     ..css['color'] = 'blue'
     ..text = 'Some text...';
+    
+  // wraps the document around a DomNode object
+  var doc = $(document);
+  print(doc.query('#element_id'));
+  
+  // creates a document from a string
+  var root = $('''
+  <root>
+    <item id="1">Item 1</item>
+    <item id="2">Item 2</item>
+    <item id="3">Item 3</item>
+  </root>''');
 }
 ```
 
