@@ -56,8 +56,7 @@ class DomNode extends IterableBase<DomNode>
     _elements = elements;
   }
 
-  // TODO: we do not need 'type' (or replace it by isXml)
-  DomNode.fromString(String str, {String type: 'text/xml'}) {
+  DomNode.fromString(String str) {
     DocumentFragment fragment = document.createDocumentFragment();
     fragment.appendHtml(str, treeSanitizer: new NullTreeSanitizer());
     _elements = new List<Element>.from(fragment.children);
