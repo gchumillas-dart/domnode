@@ -1,6 +1,6 @@
 name: domnode
 description: A client-side library to easily change and traverse DOM documents.
-version: 2.0.0
+version: 2.0.1
 author: Gonzalo Chumillas <gchumillas@email.com>
 homepage: https://github.com/soloproyectos-dart/domnode
 environment:
