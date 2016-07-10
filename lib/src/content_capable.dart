@@ -56,20 +56,17 @@ abstract class ContentCapable {
   /**
    * Appends content.
    */
-  void append(Object /* Element|DomNode|Object */ obj) {
-    if (obj is Element || obj is DomNode) {
-      DomNode node = $(obj);
-      elements.forEach((Element element) {
-        node.elements.forEach((Element node) {
-          element.append(node);
-        });
-      });
-    } else {
-      elements.forEach((Element element) {
-        element.insertAdjacentHtml('beforeend', obj.toString(),
-            treeSanitizer: new NullTreeSanitizer());
-      });
+  void append(Object /* Element|DomNode|String */ obj) {
+    if (obj is! Element && obj is! DomNode && obj is! String) {
+      throw new ArgumentError(
+          'Allowed values for \'obj\' are: Element|DomNode|String');
     }
+
+    DomNode node = $(obj);
+    elements.forEach((Element element) {
+      element.insertAdjacentHtml('beforeend', node.toString(),
+          treeSanitizer: new NullTreeSanitizer());
+    });
   }
 
   /**
@@ -87,23 +84,15 @@ abstract class ContentCapable {
    * Prepends content.
    */
   void prepend(Object /* Element|DomNode|Object */ obj) {
-    if (obj is Element || obj is DomNode) {
-      DomNode node = $(obj);
-      elements.forEach((Element element) {
-        node.elements.forEach((Element node) {
-          if (element.childNodes.length > 0) {
-            Element firstChild = element.childNodes[0];
-            element.insertBefore(node, firstChild);
-          } else {
-            element.append(node);
-          }
-        });
-      });
-    } else {
-      elements.forEach((Element element) {
-        element.insertAdjacentHtml('afterbegin', obj.toString(),
-            treeSanitizer: new NullTreeSanitizer());
-      });
+    if (obj is! Element && obj is! DomNode && obj is! String) {
+      throw new ArgumentError(
+          'Allowed values for \'obj\' are: Element|DomNode|String');
     }
+
+    DomNode node = $(obj);
+    elements.forEach((Element element) {
+      element.insertAdjacentHtml('afterbegin', node.toString(),
+          treeSanitizer: new NullTreeSanitizer());
+    });
   }
 }
